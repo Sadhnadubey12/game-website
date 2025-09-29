@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>11Exch Clone</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        background: #0b0c10;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        margin-bottom: 70px;
+      }
+      .top-banner {
+        background: #081730;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .top-banner span {
+        color: #fff;
+        font-size: 14px;
+      }
+      .top-banner .btn {
+        background: #ff007f;
+        border: none;
+        font-size: 13px;
+      }
+
+      .navbar {
+        background: #111;
+        border-bottom: 1px solid #222;
+      }
+      .navbar-brand {
+        color: #ff007f !important;
+        font-weight: bold;
+      }
+      .deposit-btn {
+        background: #00c853;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 6px;
+      }
+
+      .menu-tabs {
+        background: #0d0d0d;
+        padding: 6px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .menu-tabs a {
+        color: #ccc;
+        margin-right: 15px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .menu-tabs a:hover {
+        color: #fff;
+      }
+
+      .hero-banner {
+        background: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .hero-banner img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .section-title {
+        font-weight: bold;
+        margin: 15px 0 10px 0;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+      }
+
+      .trending-card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .sports-row {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        margin-top: 10px;
+        padding-bottom: 5px;
+      }
+      .sports-btn {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sports-btn i {
+        color: #ff007f;
+      }
+
+      .provider-logo img {
+        max-height: 80px;
+        object-fit: contain;
+      }
+
+      .bottom-nav {
+        background: #2b173a;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0;
+        border-top: 1px solid #444;
+      }
+      .bottom-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .bottom-nav a .icon {
+        font-size: 20px;
+        margin-bottom: 2px;
+      }
+      .bottom-nav a.active {
+        color: #ff00cc;
+      }
+    </style>
+
+     <style>
+      .tabs {
+        display: flex;
+        background-color: #0e161b;
+        padding: 10px;
+        border-bottom: 1px solid #222;
+      }
+
+      .tab {
+        margin-right: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .tab.active {
+        color: white;
+        border-bottom: 2px solid #e60073;
+      }
+
+      .tab-pane {
+        display: none;
+        padding: 20px;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+
+      .match-header {
+        background: linear-gradient(to right, #0e1621, #182c46);
+        padding: 15px 20px;
+        border-bottom: 1px solid #222;
+      }
+
+      .match-header h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .match-header .status {
+        font-size: 14px;
+        color: #ccc;
+      }
+
+      .match-info-content {
+        padding: 20px;
+      }
+
+      .match-box {
+        background-color: #102030;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+      }
+
+      .match-box p {
+        margin: 5px 0;
+      }
+
+      .score {
+        display: flex;
+        gap: 15px;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1a1a1a;
+        padding: 10px 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #333;
+      }
+
+      .bottom-bar button {
+        background-color: #00c6cf;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .bottom-bar .time {
+        color: #aaa;
+        font-size: 13px;
+      }
+
+      .bottom-bar .market-btns {
+        display: flex;
+        gap: 10px;
+      }
+
+      .bottom-bar .market-btns div {
+        background-color: #611b6c;
+        padding: 6px 10px;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 13px;
+        cursor: pointer;
+      }
+    </style>
+
+    <style>
+      :root {
+        --page-bg: #081516; /* very dark teal */
+        --panel-bg: #0f1a20; /* card bg */
+        --muted: #98a3a8;
+        --market-grad-a: #6a206d;
+        --market-grad-b: #321b58;
+        --cashout: #9fffe9;
+        --back-blue-top: #9fc9f9;
+        --back-blue-bot: #5e95e6;
+        --lay-pink-top: #efbfc8;
+        --lay-pink-bot: #e085a6;
+        --card-border: rgba(255, 255, 255, 0.03);
+        --underline: linear-gradient(90deg, #ff6fb0, #9b4bff);
+      }
+
+      /* Reset & layout */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: "Poppins", system-ui, Segoe UI, Roboto, Helvetica, Arial;
+        background: linear-gradient(180deg, var(--page-bg) 0%, #061111 60%);
+        color: #fff;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        width: 100%;
+        padding: 28px 24px;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* content area — fluid full width but centered with max width */
+      .content {
+        width: 100%;
+        max-width: 1220px; /* if you want full-bleed remove this; keeps nice line length */
+      }
+
+      /* top pill / header (matches screenshot pill) */
+      .top-line {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .back-arrow {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, #1e2e45, #0a1726);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .top-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #13293f, #0a1f36);
+        padding: 8px 14px;
+        border-radius: 22px;
+        font-weight: 700;
+        color: #cfe3ff;
+        box-shadow: 0 2px 0 rgba(255, 255, 255, 0.02) inset;
+        font-size: 13px;
+      }
+      .top-pill .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #ff3b3b;
+        box-shadow: 0 0 6px rgba(255, 60, 60, 0.4);
+      }
+
+      /* big title block */
+      .title-block {
+        background: linear-gradient(90deg, #04213f, #0b2a52);
+        padding: 14px 16px;
+        border-radius: 6px;
+        margin-top: 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        box-shadow: 0 2px 0 rgba(255, 255, 255, 0.02) inset;
+      }
+      .title-left {
+        line-height: 1.1;
+      }
+      .title-left .match {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .title-left .comp {
+        color: #89b8f9;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      .title-right {
+        color: #cfe3ff;
+        font-size: 13px;
+        opacity: 0.95;
+        margin-top: 2px;
+      }
+
+      /* tabs */
+      .tabs {
+        display: flex;
+        gap: 16px;
+        margin: 14px 0;
+        align-items: center;
+        padding-left: 2px;
+      }
+      .tab {
+        padding: 10px 12px;
+        font-weight: 700;
+        color: #96a3ab;
+        cursor: pointer;
+        position: relative;
+        border-radius: 6px;
+        font-size: 15px;
+        user-select: none;
+      }
+      .tab.active {
+        color: #fff;
+      }
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -10px;
+        width: 42%;
+        height: 4px;
+        border-radius: 4px;
+        background: var(--underline);
+        box-shadow: 0 4px 10px rgba(155, 75, 255, 0.12);
+      }
+
+      /* market card */
+      .market {
+        background: var(--panel-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--card-border);
+        margin-bottom: 14px;
+        box-shadow: 0 12px 30px rgba(2, 6, 8, 0.6);
+      }
+      .market-head {
+        background: linear-gradient(
+          90deg,
+          var(--market-grad-a),
+          var(--market-grad-b)
+        );
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .market-head .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #fff;
+      }
+      .cashout-pill {
+        background: linear-gradient(90deg, var(--cashout), #7df4d6);
+        color: #00221a;
+        font-weight: 800;
+        padding: 5px 10px;
+        border-radius: 9px;
+        font-size: 13px;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15) inset;
+      }
+      .market-head .right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #e8eaf6;
+        font-weight: 700;
+        font-size: 13px;
+        opacity: 0.95;
+      }
+
+      /* diagonal wedge on the right of market head to mimic screenshot corner */
+      .market-head::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 140px;
+        height: 100%;
+        transform: skewX(-18deg);
+        transform-origin: 100% 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        pointer-events: none;
+      }
+      .head-labels {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      /* rows layout: grid so left team and right side odds area */
+      .rows {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .team {
+        font-weight: 700;
+        font-size: 15px;
+        color: #fff;
+      }
+      .team .sub {
+        display: block;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      /* odds split box (blue + pink inside single rounded pill) */
+      .split {
+        display: flex;
+        height: 64px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: transform 0.14s ease, box-shadow 0.14s ease;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      .split:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.65);
+      }
+
+      .split .half {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px 12px;
+      }
+
+      .half.back {
+        background: linear-gradient(
+          180deg,
+          var(--back-blue-top),
+          var(--back-blue-bot)
+        );
+        color: #021322;
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: 0.3px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .half.lay {
+        background: linear-gradient(
+          180deg,
+          var(--lay-pink-top),
+          var(--lay-pink-bot)
+        );
+        color: #041322;
+        font-weight: 800;
+        font-size: 20px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+      .half .odd {
+        font-size: 20px;
+        font-weight: 800;
+      }
+      .half .amt {
+        font-size: 12px;
+        color: rgba(4, 16, 24, 0.7);
+        font-weight: 700;
+        margin-top: 4px;
+      }
+
+      /* when a half is not available (dash) */
+      .half.empty {
+        background: linear-gradient(180deg, #172a30, #0f1a20);
+        color: #7d8f94;
+        font-weight: 700;
+      }
+
+      /* betting slip (drawer on right) */
+      .bet-slip {
+        position: fixed;
+        right: 28px;
+        top: 96px;
+        width: 360px;
+        max-width: calc(100% - 40px);
+        background: linear-gradient(180deg, #071214, #0b2a2a);
+        color: #e6fbf7;
+        border-radius: 10px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        display: none;
+      }
+      .bet-slip.show {
+        display: block;
+      }
+      .bet-slip h4 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        color: #fff;
+      }
+      .field {
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0;
+      }
+      .stake {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        color: #dff8f4;
+        font-weight: 700;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .btn {
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 800;
+        border: none;
+      }
+      .btn.cancel {
+        background: transparent;
+        color: #9fb0b5;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .btn.place {
+        background: linear-gradient(90deg, #36d67c, #1db25f);
+        color: #04110b;
+      }
+
+      /* small screens: stack and make things fluid */
+      @media (max-width: 820px) {
+        .row {
+          grid-template-columns: 1fr 1fr;
+        }
+        .split {
+          height: 56px;
+        }
+        .content {
+          padding-bottom: 40px;
+        }
+        .bet-slip {
+          right: 12px;
+          top: auto;
+          bottom: 16px;
+          width: calc(100% - 24px);
+        }
+      }
+      @media (max-width: 520px) {
+        .row {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          align-items: start;
+        }
+        .team {
+          margin-bottom: 6px;
+          font-size: 15px;
+        }
+        .split {
+          width: 100%;
+          height: 56px;
+        }
+      }
+    </style>
+
+    <!-- Transding now style start -->
+    <style>
+      /* ✅ Trending Section */
+      .trending-card {
+        min-width: 140px;
+        height: 80px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .trending-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      /* ✅ Sports Section */
+      .sport-card {
+        min-width: 70px;
+        height: 70px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        background: #1f1f1f;
+        border-radius: 8px;
+        text-align: center;
+        padding: 8px 5px;
+        color: #fff;
+        font-size: 12px;
+      }
+
+      .sport-card img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-bottom: 5px;
+      }
+      .providers-prev .providers-next,
+      .trend-prev,
+      .trend-next,
+      .sports-prev,
+      .sports-next {
+        background: #2b2b2b;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      .trend-prev:hover,
+      .trend-next:hover,
+      .sports-prev:hover,
+      .sports-next:hover {
+        background: #444;
+      }
+    </style>
+
+    <!-- style end -->
+
+    <!-- game provider start -->
+    <style>
+      /* ---------- Providers Header ---------- */
+      .providers-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .providers-header h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: #fff;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .see-more {
+        font-size: 14px;
+        color: #aaa;
+        cursor: pointer;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+    <!-- game provider end  -->
+  </head>
+  <body>
+    <!-- Top Banner start -->
+
+    <div
+      id="installBanner"
+      style="
+        background: linear-gradient(to right, #061c3d, #02122a);
+        padding: 10px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+        color: white;
+        font-family: Arial, sans-serif;
+      "
+    >
+      <!-- Left Side -->
+      <div style="display: flex; align-items: center; gap: 12px">
+        <!-- Close Button -->
+        <button
+          id="closeBtn"
+          style="
+            background-color: #d9d9d9;
+            border: none;
+            color: #ff007f;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-size: 16px;
+            line-height: 26px;
+            text-align: center;
+            cursor: pointer;
+          "
+          aria-label="Close"
+          title="Close"
+        >
+          ✕
+        </button>
+
+        <!-- Dice Icon -->
+        <img
+          src="images/diceimage.png"
+          alt="Dice"
+          style="width: 48px; height: 48px; border-radius: 12px"
+        />
+
+        <!-- Text Content -->
+        <div style="display: flex; flex-direction: column">
+          <div style="font-weight: bold; font-size: 16px; color: white">
+            Install On IOS
+          </div>
+          <div style="font-size: 13px; color: #ccc">
+            Instant Download on your device
+          </div>
+          <div style="font-size: 14px; color: gold; margin-top: 2px">★★★★★</div>
+        </div>
+      </div>
+
+      <!-- Right Side Button -->
+      <button
+        style="
+          background: #ff007f;
+          color: white;
+          border: none;
+          font-size: 13px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+        "
+      >
+        Instructions
+      </button>
+    </div>
+
+    <script>
+      document.getElementById("closeBtn").addEventListener("click", () => {
+        document.getElementById("installBanner").style.display = "none";
+      });
+    </script>
+
+    <!-- Top Banner end -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark px-3">
+      <a
+        class="navbar-brand"
+        href="#"
+        style="display: flex; align-items: center; gap: 8px"
+      >
+        <img
+          src="/images/logo.png"
+          alt="11exch Logo"
+          style="height: 30px; width: auto"
+        />
+      </a>
+      <div class="d-flex align-items-center">
+        <span class="me-3">₹ 0</span>
+        <button class="deposit-btn">Deposit</button>
+        <i class="fa fa-user ms-3"></i>
+      </div>
+    </nav>
+
+    <!-- Menu Tabs -->
+    <div class="menu-tabs">
+      <a href="#">Aviator</a>
+      <a href="#">Aura</a>
+      <a href="#">Live Casino</a>
+      <a href="#">Sports</a>
+      <a href="#">Sportsbook</a>
+      <a href="#">Virtual Sports</a>
+      <a href="#">Poker</a>
+      <a href="#">Slot-Game</a>
+    </div>
+
+    <script>
+      // Store the current odds value and side
+      let currentOdds = 0;
+      let currentSide = "";
+
+      // Add event listeners to all split boxes
+      document.querySelectorAll(".split-box").forEach((box) => {
+        box.addEventListener("click", function () {
+          const odds = this.getAttribute("data-odds");
+          const side = this.getAttribute("data-side");
+          openBetPanel(odds, side);
+        });
+      });
+
+      function openBetPanel(odds, side) {
+        const panel = document.getElementById("bettingPanel");
+        const overlay = document.getElementById("overlay");
+        panel.style.display = "block";
+        overlay.style.display = "block";
+        currentOdds = odds;
+        currentSide = side;
+        document.getElementById("oddsInput").value = odds;
+        document.getElementById("stakeInput").value = "";
+
+        // Calculate and update liability
+        updateLiability();
+      }
+
+      function closeBetPanel() {
+        document.getElementById("bettingPanel").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+      }
+
+      function adjustStake(amount) {
+        const input = document.getElementById("stakeInput");
+        const current = parseInt(input.value) || 0;
+        input.value = current + amount;
+        updateLiability();
+      }
+
+      function clearStake() {
+        document.getElementById("stakeInput").value = "";
+        updateLiability();
+      }
+
+      function editStake() {
+        const val = prompt("Enter custom stake amount:");
+        if (val !== null && !isNaN(val) && val >= 0) {
+          document.getElementById("stakeInput").value = val;
+          updateLiability();
+        }
+      }
+
+      function setStake(type) {
+        const input = document.getElementById("stakeInput");
+        if (type === "min") {
+          input.value = 100; // minimum stake
+        } else if (type === "max") {
+          input.value = 1000000; // maximum stake (10,00,000 as per the design)
+        }
+        updateLiability();
+      }
+
+      function updateLiability() {
+        const stakeInput = document.getElementById("stakeInput");
+        const stake = parseFloat(stakeInput.value) || 0;
+        const liability = stake * (currentOdds - 1);
+
+        const liabilityElement = document.querySelector(".liability");
+        liabilityElement.textContent = `Liability : ₹${liability.toFixed(2)}`;
+      }
+
+      function showLoader() {
+        document.getElementById("loaderContainer").style.display = "flex";
+      }
+
+      function hideLoader() {
+        document.getElementById("loaderContainer").style.display = "none";
+      }
+
+      function showAlert() {
+        document.getElementById("alertContainer").style.display = "flex";
+      }
+
+      function closeAlert() {
+        document.getElementById("alertContainer").style.display = "none";
+      }
+
+      function placeBet() {
+        const stakeInput = document.getElementById("stakeInput");
+        const stake = parseFloat(stakeInput.value) || 0;
+        const confirmToggle = document.getElementById("confirmToggle").checked;
+
+        if (stake <= 0) {
+          alert("Please enter a valid stake amount");
+          return;
+        }
+
+        if (confirmToggle) {
+          const confirmed = confirm(
+            `Place bet of ₹${stake} at odds ${currentOdds}?`
+          );
+          if (!confirmed) return;
+        }
+
+        // Show loading animation
+        showLoader();
+
+        // Simulate processing time
+        setTimeout(function () {
+          // Hide loader
+          hideLoader();
+
+          // Show alert for unmatched bets
+          showAlert();
+        }, 2000); // 2 seconds delay to simulate processing
+      }
+
+      // Add event listener to update liability when stake changes
+      document
+        .getElementById("stakeInput")
+        .addEventListener("input", updateLiability);
+    </script>
+
+
+<!--  match info section start -->
+
+<div class="wrap">
+      <div class="content">
+        <!-- top pill -->
+        <div class="top-line">
+          <div class="back-arrow" aria-hidden="true">
+            <!-- simple left chevron -->
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="display: block"
+            >
+              <path
+                d="M15 18L9 12l6-6"
+                stroke="#ff7482"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="top-pill">
+            <div class="dot"></div>
+            <div>Upcoming (Opens in 4h 10m)</div>
+          </div>
+        </div>
+
+        <!-- big title -->
+        <div class="title-block">
+          <div class="title-left">
+            <div class="match">Pakistan vs Sri Lanka</div>
+            <div class="comp">Asia Cup</div>
+          </div>
+          <div class="title-right">In Play :</div>
+        </div>
+
+        <!-- tabs -->
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+          <div class="tab active" data-tab="market">Market</div>
+          <div class="tab" data-tab="info">Match Info</div>
+          <div class="tab" data-tab="live">Live Video</div>
+          <div class="tab" data-tab="open">Open Bets</div>
+        </div>
+
+        <style>
+          .tabs {
+            display: flex;
+            gap: 16px;
+            margin: 16px 0;
+            overflow-x: auto; /* enable horizontal scroll */
+            white-space: nowrap; /* keep items in one line */
+            -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+          }
+
+          .tabs::-webkit-scrollbar {
+            display: none; /* hide scrollbar for cleaner look */
+          }
+
+          .tab {
+            padding: 8px 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #96a3ab;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0; /* prevent shrinking */
+          }
+
+          .tab.active {
+            color: #fff;
+          }
+
+          .tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #ff6fb0, #9b4bff);
+          }
+        </style>
+
+        <!-- Tab Panes -->
+        <div id="tabs-content">
+          <!-- Market -->
+          <div
+            class="tab-pane active"
+            data-content="market"
+            style="background-color: #182c46; color: white"
+          >
+            <div
+              style="
+                padding: 12px 15px;
+                border-bottom: 1px solid #2a425c;
+                position: relative;
+              "
+            >
+              <span style="color: #a0aec0; font-size: 14px"
+                >Upcoming (Opens in 4h 10m)</span
+              >
+              <span style="float: right; color: #a0aec0; font-size: 14px"
+                >(0)</span
+              >
+              <div
+                style="
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  bottom: 0;
+                  width: 3px;
+                  background-color: #e53e3e;
+                "
+              ></div>
+            </div>
+            <div style="padding: 15px">
+              <div
+                style="font-size: 16px; margin-bottom: 5px; font-weight: 500"
+              >
+                Pakistan vs Sri Lanka
+              </div>
+              <div style="font-size: 14px; margin-bottom: 10px">Asia Cup</div>
+              <div style="font-size: 14px; color: #48bb78">
+                <span
+                  style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    background-color: #e53e3e;
+                    border-radius: 50%;
+                    margin-right: 8px;
+                  "
+                ></span>
+                In Play :
+              </div>
+            </div>
+          </div>
+
+          <!-- Match Info -->
+          <div class="tab-pane" data-content="info">
+            <div class="match-header">
+              <div class="status">🔴 Upcoming (Opens in 4h 10m)</div>
+              <h2>Pakistan vs Sri Lanka</h2>
+              <div class="status">Asia Cup</div>
+            </div>
+            <div class="match-info-content">
+              <div class="match-box">
+                <p>to and</p>
+                <div class="score">
+                  <div>Ov 0</div>
+                  <div>0 runs</div>
+                  <div>0-0</div>
+                </div>
+              </div>
+              <div class="match-box">
+                <p>to and</p>
+                <div class="score">
+                  <div>Ov 0</div>
+                  <div>0 runs</div>
+                  <div>0-0</div>
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px">
+                <span style="color: #ccc">● ●</span>
+              </div>
+            </div>
+            <div class="bottom-bar">
+              <div class="market-btns">
+                <div>Match Odds</div>
+                <div class="time">⏱ 0s</div>
+              </div>
+              <button>Cashout</button>
+              <div class="market-btns">
+                <div>BACK</div>
+                <div>LAY</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Video -->
+          <div class="tab-pane" data-content="live">
+            <p style="padding: 20px">Live Video Coming Soon</p>
+          </div>
+
+          <!-- Open Bets -->
+          <div
+            class="tab-pane"
+            data-content="open"
+            style="text-align: center; padding: 20px"
+          >
+            <!-- Toggle Buttons -->
+            <div
+              style="
+                display: inline-flex;
+                background: #2a2f36;
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 15px;
+              "
+            >
+              <button
+                id="matchedBtn"
+                class="toggle-btn active"
+                style="
+                  padding: 10px 20px;
+                  border: none;
+                  cursor: pointer;
+                  background: linear-gradient(90deg, #d946ef, #9333ea);
+                  color: #fff;
+                  font-weight: bold;
+                  border-radius: 6px;
+                  margin: 4px;
+                "
+              >
+                Matched Bets
+              </button>
+              <button
+                id="unmatchedBtn"
+                class="toggle-btn"
+                style="
+                  padding: 10px 20px;
+                  border: none;
+                  cursor: pointer;
+                  background: transparent;
+                  color: #fff;
+                  font-weight: bold;
+                  margin: 4px;
+                "
+              >
+                Unmatched Bets
+              </button>
+            </div>
+
+            <!-- Content Area -->
+            <div
+              id="betsContent"
+              style="color: #fff; font-size: 16px; margin-top: 10px"
+            >
+              Login To View Matched Bets
+            </div>
+          </div>
+
+          <script>
+            const matchedBtn = document.getElementById("matchedBtn");
+            const unmatchedBtn = document.getElementById("unmatchedBtn");
+            const betsContent = document.getElementById("betsContent");
+
+            matchedBtn.addEventListener("click", () => {
+              matchedBtn.style.background =
+                "linear-gradient(90deg, #d946ef, #9333ea)";
+              matchedBtn.style.color = "#fff";
+              unmatchedBtn.style.background = "transparent";
+              unmatchedBtn.style.color = "#fff";
+              betsContent.innerHTML = "Login To View Matched Bets";
+            });
+
+            unmatchedBtn.addEventListener("click", () => {
+              unmatchedBtn.style.background =
+                "linear-gradient(90deg, #d946ef, #9333ea)";
+              unmatchedBtn.style.color = "#fff";
+              matchedBtn.style.background = "transparent";
+              matchedBtn.style.color = "#fff";
+              betsContent.innerHTML = "Login To View Unmatched Bets";
+            });
+          </script>
+        </div>
+
+        <!-- JavaScript for tab switching -->
+        <script>
+          document.querySelectorAll(".tab").forEach((tab) => {
+            tab.addEventListener("click", () => {
+              // Activate clicked tab
+              document
+                .querySelectorAll(".tab")
+                .forEach((t) => t.classList.remove("active"));
+              tab.classList.add("active");
+
+              // Show associated content
+              document.querySelectorAll(".tab-pane").forEach((pane) => {
+                pane.classList.remove("active");
+              });
+
+              const target = tab.getAttribute("data-tab");
+              document
+                .querySelector(`.tab-pane[data-content="${target}"]`)
+                .classList.add("active");
+            });
+          });
+        </script>
+
+        <!-- MARKET 1 -->
+        <div class="market" id="market-1">
+          <div class="market-head">
+            <div class="left">
+              <div>Match Odds</div>
+              <div class="cashout-pill">Cashout</div>
+            </div>
+
+            <div class="right">
+              <div class="head-labels">
+                <div
+                  style="
+                    background: rgba(255, 255, 255, 0.06);
+                    padding: 6px 8px;
+                    border-radius: 8px;
+                    font-weight: 700;
+                  "
+                >
+                  ⏱ 0s
+                </div>
+              </div>
+              <div style="font-weight: 800; letter-spacing: 0.6px">
+                BACK &nbsp; LAY
+              </div>
+            </div>
+          </div>
+
+          <div class="rows">
+            <!-- Pakistan row -->
+            <div class="row">
+              <div class="team">Pakistan</div>
+
+              <div class="split" role="group" aria-label="Pakistan odds">
+                <div
+                  class="half back"
+                  data-team="Pakistan"
+                  data-side="BACK"
+                  data-odds="1.77"
+                  tabindex="0"
+                >
+                  <div class="odd">1.77</div>
+                  <div class="amt">11175.43</div>
+                </div>
+                <div
+                  class="half lay"
+                  data-team="Pakistan"
+                  data-side="LAY"
+                  data-odds="1.78"
+                  tabindex="0"
+                >
+                  <div class="odd">1.78</div>
+                  <div class="amt">309.7</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sri Lanka row -->
+            <div class="row">
+              <div class="team">Sri Lanka</div>
+
+              <div class="split" role="group" aria-label="Sri Lanka odds">
+                <div
+                  class="half back"
+                  data-team="Sri Lanka"
+                  data-side="BACK"
+                  data-odds="2.28"
+                  tabindex="0"
+                >
+                  <div class="odd">2.28</div>
+                  <div class="amt">337.17</div>
+                </div>
+                <div
+                  class="half lay"
+                  data-team="Sri Lanka"
+                  data-side="LAY"
+                  data-odds="2.30"
+                  tabindex="0"
+                >
+                  <div class="odd">2.30</div>
+                  <div class="amt">9174.81</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MARKET 2 - Toss -->
+        <div class="market" id="market-2">
+          <div class="market-head">
+            <div class="left">To Win The Toss</div>
+            <div class="right">
+              <div class="head-labels">
+                <div
+                  style="
+                    background: rgba(255, 255, 255, 0.06);
+                    padding: 6px 8px;
+                    border-radius: 8px;
+                    font-weight: 700;
+                  "
+                >
+                  ⏱ 0s
+                </div>
+              </div>
+              <div style="font-weight: 800; letter-spacing: 0.6px">
+                BACK &nbsp; LAY
+              </div>
+            </div>
+          </div>
+
+          <div class="rows">
+            <div class="row">
+              <div class="team">Pakistan</div>
+
+              <div class="split">
+                <div
+                  class="half back"
+                  data-team="Pakistan (Toss)"
+                  data-side="BACK"
+                  data-odds="1.98"
+                  tabindex="0"
+                >
+                  <div class="odd">1.98</div>
+                  <div class="amt">—</div>
+                </div>
+                <div
+                  class="half empty"
+                  data-team="Pakistan (Toss)"
+                  data-side="LAY"
+                  data-odds="-"
+                  tabindex="0"
+                >
+                  <div class="odd">-</div>
+                  <div class="amt">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="team">Sri Lanka</div>
+
+              <div class="split">
+                <div
+                  class="half back"
+                  data-team="Sri Lanka (Toss)"
+                  data-side="BACK"
+                  data-odds="1.98"
+                  tabindex="0"
+                >
+                  <div class="odd">1.98</div>
+                  <div class="amt">—</div>
+                </div>
+                <div
+                  class="half empty"
+                  data-team="Sri Lanka (Toss)"
+                  data-side="LAY"
+                  data-odds="-"
+                  tabindex="0"
+                >
+                  <div class="odd">-</div>
+                  <div class="amt">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end wrap -->
+
+    <!-- Betting slip drawer -->
+    <div class="bet-slip" id="betSlip" aria-hidden="true">
+      <h4 id="betHeading">Place Bet</h4>
+
+      <div class="field">
+        <div style="color: #bfe9e6">Selection</div>
+        <div id="sel" style="font-weight: 800">—</div>
+      </div>
+      <div class="field">
+        <div style="color: #bfe9e6">Side</div>
+        <div id="side" style="font-weight: 800">—</div>
+      </div>
+      <div class="field">
+        <div style="color: #bfe9e6">Odds</div>
+        <div id="odds" style="font-weight: 800">—</div>
+      </div>
+
+      <div style="margin-top: 8px">
+        <label style="font-size: 13px; color: #9fb0b5; font-weight: 700"
+          >Stake</label
+        >
+        <input
+          id="stake"
+          type="number"
+          placeholder="Enter stake"
+          class="stake"
+        />
+      </div>
+
+      <div class="btn-row">
+        <button class="btn cancel" id="closeSlip">Cancel</button>
+        <button class="btn place" id="placeBetBtn">Place Bet</button>
+      </div>
+    </div>
+
+    <script>
+      // Tabs (visual only)
+      document.querySelectorAll(".tab").forEach((t) => {
+        t.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((x) => x.classList.remove("active"));
+          t.classList.add("active");
+        });
+      });
+
+      // Betting slip logic
+      const slip = document.getElementById("betSlip");
+      const selEl = document.getElementById("sel");
+      const sideEl = document.getElementById("side");
+      const oddsEl = document.getElementById("odds");
+      const stakeEl = document.getElementById("stake");
+
+      function openSlip(team, side, odds) {
+        selEl.textContent = team;
+        sideEl.textContent = side;
+        oddsEl.textContent = odds;
+        stakeEl.value = "";
+        slip.classList.add("show");
+        slip.setAttribute("aria-hidden", "false");
+        setTimeout(() => stakeEl.focus(), 120);
+      }
+
+      function closeSlip() {
+        slip.classList.remove("show");
+        slip.setAttribute("aria-hidden", "true");
+      }
+
+      document.getElementById("closeSlip").addEventListener("click", closeSlip);
+
+      // Click handlers for halves
+      document.querySelectorAll(".half").forEach((h) => {
+        h.addEventListener("click", () => {
+          const team =
+            h.getAttribute("data-team") ||
+            h.closest(".row").querySelector(".team").innerText;
+          const side = h.getAttribute("data-side") || "";
+          const odds = h.getAttribute("data-odds") || "";
+          if (odds === "-" || odds === "") return; // no-op for empty
+          openSlip(team, side, odds);
+        });
+        // keyboard accessible
+        h.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            h.click();
+          }
+        });
+      });
+
+      // Place bet (simulated)
+      document.getElementById("placeBetBtn").addEventListener("click", () => {
+        const s = parseFloat(stakeEl.value || 0);
+        if (!s || s <= 0) {
+          alert("Please enter stake > 0");
+          stakeEl.focus();
+          return;
+        }
+        alert(
+          "Bet placed:\n" +
+            selEl.textContent +
+            " | " +
+            sideEl.textContent +
+            " @ " +
+            oddsEl.textContent +
+            "\nStake: " +
+            s.toFixed(2)
+        );
+        closeSlip();
+      });
+
+      // click outside slip to close (optional)
+      document.addEventListener("click", (e) => {
+        if (!slip.classList.contains("show")) return;
+        if (e.target.closest(".bet-slip") || e.target.closest(".half")) return;
+        closeSlip();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSlip();
+      });
+    </script>
+<!-- match info section end  -->
+
+
+
+      <!-- Indian Card Games end -->
+
+      <style>
+        /* Footer Styles */
+        .footer {
+          background-color: #070d13;
+          padding: 60px 20px 40px;
+          border-radius: 10px;
+          width: 100%;
+          max-width: 1480px;
+        }
+
+        /* .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      } */
+
+        /* Top Row: Logo + Navigation */
+        .footer-top {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .footer-logo img {
+          width: auto;
+          height: 100px;
+        }
+
+        .footer-logo span {
+          font-size: 28px;
+          font-weight: bold;
+          color: #d428a0;
+        }
+
+        .footer .top-links {
+          display: flex;
+          gap: 25px;
+          flex-wrap: wrap;
+        }
+
+        .footer .top-links a {
+          color: #ffffff;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 16px;
+          transition: color 0.3s;
+          position: relative;
+        }
+
+        .footer .top-links a:hover {
+          color: #d428a0;
+        }
+
+        .footer .top-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 0;
+          background-color: #d428a0;
+          transition: width 0.3s;
+        }
+
+        .footer .top-links a:hover::after {
+          width: 100%;
+        }
+
+        /* Middle: About / Blog / Responsible */
+        .footer-links {
+          text-align: center;
+          margin-bottom: 40px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 40px;
+        }
+
+        .footer-links a {
+          color: #c2c2c2;
+          text-decoration: none;
+          font-size: 16px;
+          transition: color 0.3s;
+          padding: 8px 15px;
+          border-radius: 4px;
+          position: relative;
+        }
+
+        .footer-links a:hover {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Social Media Section */
+        .footer .social-section {
+          text-align: center;
+          margin-bottom: 30px;
+          width: 100%;
+        }
+
+        .footer .social-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .social-icons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 40px;
+        }
+
+        .footer .social-icons a {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 20px;
+          text-decoration: none;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer .telegram {
+          background-color: #0088cc;
+        }
+        .footer .instagram {
+          background: linear-gradient(
+            45deg,
+            #f09433,
+            #e6683c,
+            #dc2743,
+            #cc2366,
+            #bc1888
+          );
+        }
+        .footer .facebook {
+          background-color: #3b5998;
+        }
+
+        /* Download Button */
+        .footer .download-section {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .footer .download-button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(90deg, #c00090, #8000ff);
+          color: white;
+          padding: 15px 25px;
+          border-radius: 12px;
+          text-decoration: none;
+          max-width: 320px;
+          width: 100%;
+          font-weight: bold;
+          font-size: 16px;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .download-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(128, 0, 255, 0.3);
+        }
+
+        .footer .download-button i {
+          margin-right: 12px;
+          font-size: 24px;
+          color: white;
+        }
+
+        .footer .download-text {
+          flex-grow: 1;
+          text-align: left;
+          font-size: 14px;
+          color: white;
+        }
+
+        .footer .download-text strong {
+          display: block;
+          font-size: 16px;
+        }
+
+        .footer .arrow {
+          font-size: 20px;
+          margin-left: 10px;
+          color: white;
+        }
+
+        /* Payment Methods Section */
+        .footer .payment-section {
+          width: 100%;
+          margin: 30px 0;
+          text-align: center;
+        }
+
+        .footer .payment-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .payment-methods {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-top: 15px;
+        }
+
+        .footer .payment-method {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 20px;
+          border-radius: 8px;
+          color: #c2c2c2;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .footer .payment-method:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          transform: translateY(-3px);
+        }
+
+        .footer .payment-method i {
+          font-size: 20px;
+        }
+
+        .footer .copyright {
+          margin-top: 40px;
+          text-align: center;
+          color: #c2c2c2;
+          font-size: 14px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .footer-top {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+          }
+
+          .footer .top-links {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+          }
+
+          .footer-links {
+            flex-direction: column;
+            gap: 15px;
+          }
+
+          .footer .payment-methods {
+            gap: 10px;
+          }
+
+          .footer .payment-method {
+            padding: 8px 15px;
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .footer-logo span {
+            font-size: 24px;
+          }
+
+          .footer .download-button {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            padding: 15px;
+          }
+
+          .footer .download-text {
+            text-align: center;
+          }
+
+          .footer .arrow {
+            display: none;
+          }
+
+          .footer .social-icons a {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+          }
+
+          .footer .payment-methods {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .footer .payment-method {
+            width: 200px;
+            justify-content: center;
+          }
+        }
+      </style>
+
+      <!-- FOOTER START -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <!-- Top Row: Logo + Navigation -->
+          <div class="footer-top">
+            <div class="footer-logo">
+              <img src="/images/logo.png" alt="Dice Logo" />
+            </div>
+
+            <div class="top-links">
+              <a href="#">ABOUT</a>
+              <a href="#">REGULATIONS</a>
+              <a href="#">HELP</a>
+            </div>
+          </div>
+
+          <!-- Middle Section: Additional Links -->
+          <div class="footer-links">
+            <a href="#">About us</a>
+            <a href="#">Responsible Gaming</a>
+            <a href="#">Blog</a>
+          </div>
+
+          <!-- Social Media Section -->
+          <div class="social-section">
+            <div class="social-title">Social Networks</div>
+            <div class="social-icons">
+              <a href="#" class="telegram" title="Telegram"
+                ><i class="fab fa-telegram-plane"></i
+              ></a>
+              <a href="#" class="instagram" title="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="facebook" title="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Download Button -->
+          <div class="download-section">
+            <a href="#" class="download-button" id="downloadApp">
+              <i class="fab fa-android"></i>
+              <div class="download-text">
+                Download<br />
+                <strong>ANDROID APP</strong>
+              </div>
+              <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+          </div>
+
+          <!-- Payment Methods Section -->
+          <div class="payment-section">
+            <div class="payment-title">Payment Methods</div>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-mobile-alt"></i>
+                <span>UPI</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-wallet"></i>
+                <span>Paytm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Copyright -->
+          <div class="copyright">
+            <p>
+              &copy; 2023 11exch. All rights reserved. Gambling can be
+              addictive, please play responsibly.
+            </p>
+          </div>
+        </div>
+      </footer>
+      <!-- FOOTER END -->
+
+      <!-- JavaScript -->
+      <script>
+        document
+          .getElementById("downloadApp")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Create a nice notification instead of alert
+            const notification = document.createElement("div");
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #c00090, #8000ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s forwards;
+          `;
+            notification.innerHTML = "Redirecting to Android App Download...";
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+              notification.style.animation = "slideOut 0.5s forwards";
+              setTimeout(() => {
+                document.body.removeChild(notification);
+              }, 500);
+            }, 3000);
+
+            // Uncomment and add your download URL below:
+            // window.location.href = "https://your-download-link.com";
+          });
+
+        // Add keyframes for animation
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @keyframes slideIn {
+          from { transform: translateX(100px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100px); opacity: 0; }
+        }
+      `;
+        document.head.appendChild(style);
+      </script>
+
+      <!-- Bottom Navigation -->
+      <div
+        style="
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 70px;
+          background: #2e153e;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          border-top-left-radius: 16px;
+          border-top-right-radius: 16px;
+          z-index: 9999;
+        "
+      >
+        <!-- Casino -->
+        <a
+          href="casino.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-dice"></i>
+          </div>
+          Casino
+        </a>
+
+        <!-- Sports -->
+        <a
+          href="sports.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-futbol"></i>
+          </div>
+          Sports
+        </a>
+
+        <!-- Home Button -->
+        <a
+          href="index.html"
+          style="
+            text-align: center;
+            flex: 1;
+            text-decoration: none;
+            margin-top: -30px;
+          "
+        >
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: #b122d9;
+              border-radius: 50%;
+              border: 6px solid #0c1013;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 24px;
+              color: white;
+              margin: auto;
+            "
+          >
+            <i class="fas fa-home"></i>
+          </div>
+        </a>
+
+        <!-- Open Bets -->
+        <a
+          href="openbets.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-tv"></i>
+          </div>
+          Open Bets
+        </a>
+
+        <!-- Menu -->
+        <a
+          href="menu.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            background-color: linear-gradient(to right, #b833dc, #ff00cc);
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-th"></i>
+          </div>
+          Menu
+        </a>
+      </div>
+    </body>
+
+    <!-- transding now script  start-->
+    <script>
+      function setupSlider(sliderClass, prevBtn, nextBtn) {
+        const slider = document.querySelector(sliderClass);
+        const prev = document.querySelector(prevBtn);
+        const next = document.querySelector(nextBtn);
+
+        next.addEventListener("click", () => {
+          slider.scrollBy({ left: 200, behavior: "smooth" });
+        });
+
+        prev.addEventListener("click", () => {
+          slider.scrollBy({ left: -200, behavior: "smooth" });
+        });
+      }
+
+      setupSlider(".trending-slider", ".trend-prev", ".trend-next");
+      setupSlider(".sports-slider", ".sports-prev", ".sports-next");
+    </script>
+    <!-- game provider  -->
+
+    <!-- Swiper JS -->
+    <script>
+      const providerSwiper = new Swiper(".providers-swiper", {
+        slidesPerView: 1, // only 1 grid (3x3) per slide
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".providers-next",
+          prevEl: ".providers-prev",
+        },
+        loop: true,
+        grabCursor: true,
+        keyboard: { enabled: true },
+      });
+    </script>
+
+    <!-- end of game provider -->
+
+    <!-- transding now script end  -->
+
+    <!-- whstapp icon start -->
+    <!-- ✅ WhatsApp Button -->
+    <div class="whatsapp-popup">
+      <div class="whatsapp-icon">
+        <a href="https://wa.me/919999999999" target="_blank">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/220/220236.png"
+            alt="WhatsApp"
+          />
+          <div class="tooltip-text">
+            Play and win!<br />Get a new install via WhatsApp
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ✅ CSS -->
+    <style>
+      .whatsapp-popup {
+        position: fixed;
+        bottom: 80px;
+        left: 10px;
+        z-index: 9999;
+      }
+
+      .whatsapp-icon {
+        position: relative;
+        width: 56px;
+        height: 56px;
+      }
+
+      .whatsapp-icon a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        background-color: #25d366;
+        border-radius: 50%;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        overflow: visible;
+      }
+
+      .whatsapp-icon img {
+        width: 32px;
+        height: 32px;
+        pointer-events: none;
+      }
+
+      /* ✅ Tooltip Styling */
+      .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 70px;
+        transform: translateY(-50%);
+        background-color: #25d366;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 1.3;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      /* ✅ Show tooltip on hover */
+      .whatsapp-icon:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+
+    <!-- whatsapp icon end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

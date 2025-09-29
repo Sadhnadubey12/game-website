@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11Exch Clone</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Reset & Body */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #0e141a;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Main Container */
+      .container {
+        background-color: #0e1320;
+        width: 100%;
+        max-width: 1600px;
+        padding: 20px;
+        flex-grow: 1;
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+          max-width: 100%;
+        }
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #111a2b;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
+      .header .info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .header .info span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .header .sub {
+        font-size: 13px;
+        color: #aaa;
+      }
+      .header button {
+        background-color: #0bc15c;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .header .close {
+        font-size: 18px;
+        cursor: pointer;
+        margin-left: 8px;
+      }
+
+      /* Sections */
+      .section-title {
+        margin: 20px 0 10px;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+      .card {
+        background-color: #182134;
+        padding: 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .card:hover {
+        background-color: #22304d;
+      }
+      .card span {
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      /* Banner */
+      .banner {
+        margin-top: 20px;
+        background: linear-gradient(to right, #91288c, #f43191);
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        flex-wrap: wrap;
+      }
+      .banner .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .banner .left span {
+        font-weight: bold;
+      }
+      .banner button {
+        background: #fff;
+        color: #e80d6c;
+        font-weight: bold;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .modal.show {
+        display: flex;
+        opacity: 1;
+      }
+      .modal-content {
+        background: linear-gradient(180deg, #0e1320, #1d2a4a);
+        padding: 20px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        color: #fff;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      .modal.show .modal-content {
+        transform: scale(1);
+      }
+      .modal-content h2 {
+        font-size: 20px;
+        margin-bottom: 5px;
+        background: linear-gradient(90deg, #0bc15c, #7a4fe9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .modal-content p {
+        margin: 0 0 15px;
+        font-size: 14px;
+        color: #ccc;
+      }
+      .modal-content input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #333;
+        font-size: 14px;
+        background: #0e1320;
+        color: #fff;
+      }
+      .modal-content input::placeholder {
+        color: white;
+      }
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      .modal-content button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .btn-sms {
+        background: #0bc15c;
+        color: #fff;
+      }
+      .btn-wa {
+        background: #25d366;
+        color: #fff;
+      }
+      .divider {
+        margin: 15px 0;
+        font-size: 13px;
+        color: #888;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #333;
+      }
+      .divider:not(:empty)::before {
+        margin-right: 0.75em;
+      }
+      .divider:not(:empty)::after {
+        margin-left: 0.75em;
+      }
+      .social-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .social-btns button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        background: #111a2b;
+        color: #fff;
+        border: 1px solid #333;
+      }
+      .social-btns button:hover {
+        background: #1f2d46;
+      }
+      .close-modal {
+        margin-top: 15px;
+        display: inline-block;
+        font-size: 16px;
+        color: #aaa;
+        cursor: pointer;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: #070d13;
+        padding: 60px 20px 40px;
+        border-radius: 10px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .footer-logo img {
+        height: 100px;
+      }
+      .footer-logo span {
+        font-size: 28px;
+        font-weight: bold;
+        color: #d428a0;
+      }
+      .top-links {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+      }
+      .top-links a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        position: relative;
+      }
+      .top-links a:hover {
+        color: #d428a0;
+      }
+      .top-links a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #d428a0;
+        transition: width 0.3s;
+      }
+      .top-links a:hover::after {
+        width: 100%;
+      }
+      .footer-links {
+        text-align: center;
+        margin-bottom: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+      }
+      .footer-links a {
+        color: #c2c2c2;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 15px;
+        border-radius: 4px;
+        transition: 0.3s;
+      }
+      .footer-links a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .social-section {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .social-title {
+        font-size: 18px;
+        color: #c2c2c2;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+      }
+      .social-icons a {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .social-icons a:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .telegram {
+        background-color: #0088cc;
+      }
+      .instagram {
+        background: linear-gradient(
+          45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
+      .facebook {
+        background-color: #3b5998;
+      }
+      .download-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+      .download-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(90deg, #c00090, #8000ff);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        text-decoration: none;
+        max-width: 320px;
+        width: 100%;
+        font-weight: bold;
+        font-size: 16px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .download-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(128, 0, 255, 0.3);
+      }
+      .download-text {
+        flex-grow: 1;
+        text-align: left;
+        font-size: 14px;
+        color: white;
+      }
+      .download-text strong {
+        display: block;
+        font-size: 16px;
+      }
+      .arrow {
+        font-size: 20px;
+        margin-left: 10px;
+        color: white;
+      }
+      .payment-section {
+        text-align: center;
+        margin: 30px 0;
+      }
+      .payment-title {
+        font-size: 18px;
+        color: #c2c2c2;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .payment-methods {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .payment-method {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: #c2c2c2;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+      }
+      .payment-method:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transform: translateY(-3px);
+      }
+      .copyright {
+        margin-top: 40px;
+        text-align: center;
+        color: #c2c2c2;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .footer-top {
+          flex-direction: column;
+          gap: 20px;
+        }
+        .top-links {
+          justify-content: center;
+          gap: 15px;
+        }
+        .footer-links {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .payment-methods {
+          gap: 10px;
+        }
+        .payment-method {
+          padding: 8px 15px;
+          font-size: 14px;
+        }
+      }
+      @media (max-width: 480px) {
+        .footer-logo span {
+          font-size: 24px;
+        }
+        .download-button {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+          padding: 15px;
+        }
+        .download-text {
+          text-align: center;
+        }
+        .arrow {
+          display: none;
+        }
+        .social-icons a {
+          width: 45px;
+          height: 45px;
+          font-size: 18px;
+        }
+        .payment-methods {
+          flex-direction: column;
+          align-items: center;
+        }
+        .payment-method {
+          width: 200px;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div>
+          <div class="info"><span>👤 Hii, There</span></div>
+          <div class="sub">Welcome to 11Exch</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px">
+          <button id="openModal">Register Now</button>
+          <div class="close">✖</div>
+        </div>
+      </div>
+
+      <!-- Sports -->
+      <div class="section-title">SPORTS</div>
+      <div class="grid">
+        <div class="card" style="color: white">▶️ <span>Live</span></div>
+        <div class="card" style="color: white">⚽ <span>Sports</span></div>
+        <div class="card" style="color: white">🏆 <span>Sportsbook</span></div>
+        <div class="card" style="color: white">🎮 <span>Esports</span></div>
+        <div class="card" style="color: white">
+          🎮 <span>Virtual Sports</span>
+        </div>
+      </div>
+
+      <!-- Casino -->
+      <div class="section-title">CASINO</div>
+      <div class="grid">
+        <div class="card" style="color: white">🎲 <span>Live Casino</span></div>
+        <div class="card" style="color: white">🃏 <span>Poker</span></div>
+        <div class="card" style="color: white">🎲 <span>Game</span></div>
+        <div class="card" style="color: white">
+          🎡 <span>Non-Stop Roulette</span>
+        </div>
+      </div>
+
+      <!-- Other Games -->
+      <div class="section-title">OTHER GAMES</div>
+      <div class="grid">
+        <div class="card" style="color: white">✈️ <span>Aviator</span></div>
+        <div class="card" style="color: white">⚽ <span>Teenpatti</span></div>
+        <div class="card" style="color: white">🏆 <span>Dream Wheel</span></div>
+        <div class="card" style="color: white">
+          🐎 <span>Horse Racing</span>
+        </div>
+        <div class="card" style="color: white">
+          🐕 <span>Greyhound Racing</span>
+        </div>
+      </div>
+
+      <!-- Banner -->
+      <div class="banner">
+        <div class="left">
+          🤖
+          <div>
+            <span>Android Application</span><br /><small
+              >Instant download on your device</small
+            >
+          </div>
+        </div>
+        <button>Install Now</button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <h2>New Member?</h2>
+        <p>Register Now 👋</p>
+        <input type="text" placeholder="+91 Enter your Mobile Number" />
+        <div class="btn-row">
+          <button class="btn-sms">📩 Get SMS</button>
+          <button class="btn-wa">💬 WhatsApp</button>
+        </div>
+        <div class="divider">or sign up with</div>
+        <div class="social-btns">
+          <button class="btn-google">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+              alt="Google"
+              width="20"
+              height="20"
+            />
+            Google
+          </button>
+          <button class="btn-wa">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+              alt="WhatsApp"
+              width="20"
+              height="20"
+            />
+            WhatsApp
+          </button>
+        </div>
+        <span class="close-modal" id="closeModal">✖ Close</span>
+      </div>
+    </div>
+
+    <!-- bottom-nav start -->
+    <!-- Bottom Navigation -->
+    <div
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: #2e153e;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        z-index: 9999;
+      "
+    >
+      <!-- Casino -->
+      <a
+        href="casino.html"
+        style="
+          text-align: center;
+          flex: 1;
+          font-size: 13px;
+          color: #9b8fa3;
+          text-decoration: none;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 3px">
+          <i class="fas fa-dice"></i>
+        </div>
+        Casino
+      </a>
+
+      <!-- Sports -->
+      <a
+        href="sports.html"
+        style="
+          text-align: center;
+          flex: 1;
+          font-size: 13px;
+          color: #9b8fa3;
+          text-decoration: none;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 3px">
+          <i class="fas fa-futbol"></i>
+        </div>
+        Sports
+      </a>
+
+      <!-- Home Button -->
+      <a
+        href="index.html"
+        style="
+          text-align: center;
+          flex: 1;
+          text-decoration: none;
+          margin-top: -30px;
+        "
+      >
+        <div
+          style="
+            width: 60px;
+            height: 60px;
+            background: #b122d9;
+            border-radius: 50%;
+            border: 6px solid #0c1013;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            margin: auto;
+          "
+        >
+          <i class="fas fa-home"></i>
+        </div>
+      </a>
+
+      <!-- Open Bets -->
+      <a
+        href="openbets.html"
+        style="
+          text-align: center;
+          flex: 1;
+          font-size: 13px;
+          color: #9b8fa3;
+          text-decoration: none;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 3px">
+          <i class="fas fa-tv"></i>
+        </div>
+        Open Bets
+      </a>
+
+      <!-- Menu -->
+      <a
+        href="menu.html"
+        style="
+          text-align: center;
+          flex: 1;
+          font-size: 13px;
+          color: #9b8fa3;
+          background-color: linear-gradient(to right, #b833dc, #ff00cc);
+          text-decoration: none;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 3px">
+          <i class="fas fa-th"></i>
+        </div>
+        Menu
+      </a>
+    </div>
+
+    <!-- bottom-nav end -->
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="Dice Logo" />
+          </div>
+          <div class="top-links">
+            <a href="#">ABOUT</a><a href="#">REGULATIONS</a><a href="#">HELP</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#">About us</a><a href="#">Responsible Gaming</a
+          ><a href="#">Blog</a>
+        </div>
+        <div class="social-section">
+          <div class="social-title">Social Networks</div>
+          <div class="social-icons">
+            <a href="#" class="telegram" title="Telegram"
+              ><i class="fab fa-telegram-plane"></i
+            ></a>
+            <a href="#" class="instagram" title="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="facebook" title="Facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+        <div class="download-section">
+          <a href="#" class="download-button" id="downloadApp">
+            <i class="fab fa-android"></i>
+            <div class="download-text">
+              Download<br /><strong>ANDROID APP</strong>
+            </div>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+          </a>
+        </div>
+        <div class="payment-section">
+          <div class="payment-title">Payment Methods</div>
+          <div class="payment-methods">
+            <div class="payment-method">
+              <i class="fas fa-university"></i><span>Bank Transfer</span>
+            </div>
+            <div class="payment-method">
+              <i class="fas fa-mobile-alt"></i><span>UPI</span>
+            </div>
+            <div class="payment-method">
+              <i class="fas fa-wallet"></i><span>Paytm</span>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          &copy; 2023 11exch. All rights reserved. Gambling can be addictive,
+          please play responsibly.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const openModal = document.getElementById("openModal");
+      const closeModal = document.getElementById("closeModal");
+      const modal = document.getElementById("registerModal");
+      openModal.addEventListener("click", () => modal.classList.add("show"));
+      closeModal.addEventListener("click", () =>
+        modal.classList.remove("show")
+      );
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("show");
+      });
+
+      document
+        .getElementById("downloadApp")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          const notification = document.createElement("div");
+          notification.style.cssText = `
+          position: fixed; top: 20px; right: 20px; background: linear-gradient(90deg,#c00090,#8000ff);
+          color:white; padding:15px 25px; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,0.2); z-index:1000;
+          animation: slideIn 0.5s forwards;
+        `;
+          notification.innerHTML = "Redirecting to Android App Download...";
+          document.body.appendChild(notification);
+          setTimeout(() => {
+            notification.style.animation = "slideOut 0.5s forwards";
+            setTimeout(() => document.body.removeChild(notification), 500);
+          }, 3000);
+        });
+      const style = document.createElement("style");
+      style.innerHTML = `
+        @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100px); opacity: 0; } }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

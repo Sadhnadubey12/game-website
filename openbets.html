@@ -1,0 +1,3584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>11Exch Clone</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/png" href="images/diceimage.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* social media link start css  */
+
+      .whatsapp-popup {
+        position: fixed;
+        bottom: 80px;
+        left: 10px;
+        z-index: 9999;
+      }
+
+      .whatsapp-icon {
+        position: relative;
+        width: 56px;
+        height: 56px;
+      }
+
+      .whatsapp-icon a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        background-color: #25d366;
+        border-radius: 50%;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        overflow: visible;
+      }
+
+      .whatsapp-icon img {
+        width: 32px;
+        height: 32px;
+        pointer-events: none;
+      }
+
+      /* ✅ Tooltip Styling */
+      .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 70px;
+        transform: translateY(-50%);
+        background-color: #25d366;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 1.3;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      /* ✅ Show tooltip on hover */
+      .whatsapp-icon:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* end of social media icon */
+
+      body {
+        background: #0b0c10;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        margin-bottom: 70px;
+      }
+      /* .top-banner {
+        background: #081730;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .top-banner span {
+        color: #fff;
+        font-size: 14px;
+      }
+      .top-banner .btn {
+        background: #ff007f;
+        border: none;
+        font-size: 13px;
+      } */
+
+      .navbar {
+        background: #111;
+        border-bottom: 1px solid #222;
+      }
+      .navbar-brand {
+        color: #ff007f !important;
+        font-weight: bold;
+      }
+      .deposit-btn {
+        background: #00c853;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 6px;
+      }
+
+      .menu-tabs {
+        background: #0d0d0d;
+        padding: 6px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .menu-tabs a {
+        color: #ccc;
+        margin-right: 15px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .menu-tabs a:hover {
+        color: #fff;
+      }
+
+      .hero-banner {
+        background: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .hero-banner img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .section-title {
+        font-weight: bold;
+        margin: 15px 0 10px 0;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+      }
+
+      /* .trending-card img {
+        width: 100%;
+        border-radius: 10px;
+      } */
+
+      .sports-row {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        margin-top: 10px;
+        padding-bottom: 5px;
+      }
+      .sports-btn {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sports-btn i {
+        color: #ff007f;
+      }
+
+      .provider-logo img {
+        max-height: 80px;
+        object-fit: contain;
+      }
+    </style>
+
+    <!-- Transding now style start -->
+    <style>
+      /* ✅ Trending Section */
+      .trending-container {
+        display: flex;
+        gap: 0; /* Ensure no gap between flex items */
+      }
+
+      .trending-card {
+        min-width: 80px;
+        height: 50px;
+        margin-right: 4px;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 0; /* Just in case */
+      }
+
+      .trending-card:last-child {
+        margin-right: 0;
+      }
+
+      .trending-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      /* ✅ Sports Section */
+      /* .sport-card {
+        min-width: 70px;
+        height: 70px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        background: #1f1f1f;
+        border-radius: 8px;
+        text-align: center;
+        padding: 8px 5px;
+        color: #fff;
+        font-size: 12px;
+      } */
+
+      /* .sport-card img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-bottom: 5px;
+      } */
+      .providers-prev .providers-next,
+      .trend-prev,
+      .trend-next,
+      .sports-prev,
+      .sports-next {
+        background: #2b2b2b;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      .trend-prev:hover,
+      .trend-next:hover,
+      .sports-prev:hover,
+      .sports-next:hover {
+        background: #444;
+      }
+    </style>
+
+    <!-- style end -->
+
+    <!-- game provider start -->
+    <style>
+      /* ---------- Providers Header ---------- */
+      .providers-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .providers-header h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: #fff;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .see-more {
+        font-size: 14px;
+        color: #aaa;
+        cursor: pointer;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ---------- Providers Grid ---------- */
+      .providers-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          6,
+          1fr
+        ); /* website view me jyada columns */
+        gap: 12px;
+        width: 100%; /* full width container */
+      }
+
+      .provider-card {
+        width: 100%;
+        height: 60px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        background-color: #1a2430;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .provider-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* 📱 Mobile view (768px se chhota screen) */
+      @media (max-width: 768px) {
+        .providers-grid {
+          grid-template-columns: repeat(3, 1fr); /* mobile pe 3 per row */
+        }
+      }
+    </style>
+    <!-- game provider end  -->
+  </head>
+  <body>
+    <!-- Top Banner start -->
+
+    <div
+      id="installBanner"
+      style="
+        background: linear-gradient(to right, #061c3d, #02122a);
+        padding: 10px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+        color: white;
+        font-family: Arial, sans-serif;
+      "
+    >
+      <!-- Left Side -->
+      <div style="display: flex; align-items: center; gap: 12px">
+        <!-- Close Button -->
+        <button
+          id="closeBtn"
+          style="
+            background-color: #d9d9d9;
+            border: none;
+            color: #ff007f;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-size: 16px;
+            line-height: 26px;
+            text-align: center;
+            cursor: pointer;
+          "
+          aria-label="Close"
+          title="Close"
+        >
+          ✕
+        </button>
+
+        <!-- Dice Icon -->
+        <img
+          src="images/diceimage.png"
+          alt="Dice"
+          style="width: 48px; height: 48px; border-radius: 12px"
+        />
+
+        <!-- Text Content -->
+        <div style="display: flex; flex-direction: column">
+          <div style="font-weight: bold; font-size: 16px; color: white">
+            Install On IOS
+          </div>
+          <div style="font-size: 13px; color: #ccc">
+            Instant Download on your device
+          </div>
+          <div style="font-size: 14px; color: gold; margin-top: 2px">★★★★★</div>
+        </div>
+      </div>
+
+      <!-- Right Side Button -->
+      <button
+        style="
+          background: #ff007f;
+          color: white;
+          border: none;
+          font-size: 13px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+        "
+      >
+        Instructions
+      </button>
+    </div>
+
+    <script>
+      document.getElementById("closeBtn").addEventListener("click", () => {
+        document.getElementById("installBanner").style.display = "none";
+      });
+    </script>
+
+    <!-- Top Banner end -->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark px-3">
+      <a
+        class="navbar-brand"
+        href="index.html"
+        style="display: flex; align-items: center; gap: 8px"
+      >
+        <img
+          src="/images/logo.png"
+          alt="11exch Logo"
+          style="height: 50px; width: auto"
+        />
+      </a>
+      <div class="d-flex align-items-center">
+        <span class="me-3">₹ 0</span>
+        <button class="deposit-btn">Deposit</button>
+        <i class="fa fa-user ms-3"></i>
+      </div>
+    </nav>
+
+    <!-- Menu Tabs -->
+    <div class="menu-tabs">
+      <a href="#">Aviator</a>
+      <a href="#">Aura</a>
+      <a href="#">Live Casino</a>
+      <a href="#">Sports</a>
+      <a href="#">Sportsbook</a>
+      <a href="#">Virtual Sports</a>
+      <a href="#">Poker</a>
+      <a href="#">Slot-Game</a>
+    </div>
+
+    <!-- Hero Banner -->
+    <!-- Hero Banner -->
+    <div class="container-fluid">
+      <div class="hero-banner">
+        <img
+          id="heroImage"
+          src="/images/Crypto-1757946473496.webp"
+          alt="banner"
+        />
+      </div>
+    </div>
+
+    <script>
+      const images = [
+        "/images/AsiaCup-1757946578930.webp",
+        "/images/Lossback-1757946541504.webp",
+        "/images/ProKabaddi-1757946624810.webp",
+        "/images/AsiaCup-1757946578930.webp",
+        "/images/Lossback-1757946541504.webp",
+        "/images/ProKabaddi-1757946624810.webp",
+      ];
+
+      let currentIndex = 0;
+      const heroImage = document.getElementById("heroImage");
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        heroImage.src = images[currentIndex];
+      }, 3000);
+    </script>
+
+    <style>
+      .hero-banner {
+        width: 100%;
+        max-width: 100%;
+        height: 450px;
+        overflow: hidden;
+        border-radius: 10px;
+        margin: 20px auto;
+      }
+
+      .hero-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ✅ Responsive height for tablets and mobile */
+      @media (max-width: 992px) {
+        .hero-banner {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-banner {
+          height: 200px;
+        }
+      }
+    </style>
+
+    <!-- hero banner end -->
+
+    <!-- Trending Section -->
+    <div class="container-fluid">
+      <!-- 🔥 Trending Now -->
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="section-title mb-0">🔥 TRENDING NOW</h6>
+        <div class="d-flex">
+          <button class="trend-prev">&lt;</button>
+          <button class="trend-next">&gt;</button>
+        </div>
+      </div>
+
+      <div class="trending-slider d-flex overflow-hidden">
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Limbo-1721914378674.jpeg" alt="Limbo" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Limbo-1721914378674.jpeg" alt="Limbo" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Limbo-1721914378674.jpeg" alt="Limbo" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/auratrendin.png" alt="Aura" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img
+            src="/images/TowerLegends-1725113047837.jpeg"
+            alt="Tower Legends"
+          />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Aviator-1708340856473.jpeg" alt="Aviator" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/crash-1725373368487.jpeg" alt="Crash" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Limbo-1721914378674.jpeg" alt="Limbo" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Mines-1721914398809.jpeg" alt="Mines" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/auratrendin.png" alt="Aura" />
+        </div>
+        <div class="trending-card">
+          <img
+            src="/images/TowerLegends-1725113047837.jpeg"
+            alt="Tower Legends"
+          />
+        </div>
+        <div class="trending-card">
+          <img src="/images/Aviator-1708340856473.jpeg" alt="Aviator" />
+        </div>
+        <div class="trending-card">
+          <img src="/images/crash-1725373368487.jpeg" alt="Crash" />
+        </div>
+      </div>
+
+      <!-- tranding now ended -->
+
+      <!-- 🏏 Sports Section -->
+      <!-- SPORTS Section Header -->
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 20px;
+          margin-bottom: 10px;
+        "
+      >
+        <h6 style="margin: 0; color: white; font-size: 16px">🏆 SPORTS</h6>
+        <div style="display: flex; gap: 5px">
+          <button
+            id="scrollLeft"
+            style="
+              background: #222;
+              color: white;
+              border: none;
+              padding: 4px 10px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          >
+            &lt;
+          </button>
+          <button
+            id="scrollRight"
+            style="
+              background: #222;
+              color: white;
+              border: none;
+              padding: 4px 10px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          >
+            &gt;
+          </button>
+        </div>
+      </div>
+
+      <!-- Sports Cards Scrollable Container -->
+      <div
+        id="sportsContainer"
+        style="
+          display: flex;
+          overflow-x: auto;
+          gap: 8px;
+          padding-bottom: 10px;
+          scroll-behavior: smooth;
+        "
+      >
+        <!-- Cricket -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/cricket (1).png"
+            alt="Cricket"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Cricket</span
+          >
+        </div>
+
+        <!-- Tennis -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/tennis.png"
+            alt="Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Tennis</span
+          >
+        </div>
+
+        <!-- Football -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/football-ball.png"
+            alt="Football"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Football</span
+          >
+        </div>
+
+        <!-- Horse Racing -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/horse.png"
+            alt="Horse Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Horse Racing</span
+          >
+        </div>
+
+        <!-- Greyhound Racing -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/dog.png"
+            alt="Greyhound Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Greyhound Racing</span
+          >
+        </div>
+
+        <!-- Basket Ball -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/basketball.png"
+            alt="Basket Ball"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Basket Ball</span
+          >
+        </div>
+
+        <!-- Table Tennis -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/ping-pong.png"
+            alt="Table Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Table Tennis</span
+          >
+        </div>
+
+        <!-- Repeat some sports to fill the slider -->
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/cricket (1).png"
+            alt="Cricket"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Cricket</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/tennis.png"
+            alt="Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Tennis</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/football-ball.png"
+            alt="Football"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Football</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/horse.png"
+            alt="Horse Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Horse Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/dog.png"
+            alt="Greyhound Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Greyhound Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/basketball.png"
+            alt="Basket Ball"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Basket Ball</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/ping-pong.png"
+            alt="Table Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Table Tennis</span
+          >
+        </div>
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/horse.png"
+            alt="Horse Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Horse Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/dog.png"
+            alt="Greyhound Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Greyhound Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/basketball.png"
+            alt="Basket Ball"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Basket Ball</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/ping-pong.png"
+            alt="Table Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Table Tennis</span
+          >
+        </div>
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/horse.png"
+            alt="Horse Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Horse Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/dog.png"
+            alt="Greyhound Racing"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Greyhound Racing</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/basketball.png"
+            alt="Basket Ball"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Basket Ball</span
+          >
+        </div>
+
+        <div
+          style="
+            flex: 0 0 auto;
+            width: 70px;
+            height: 110px;
+            background: #1b2230;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+          "
+        >
+          <img
+            src="/images/ping-pong.png"
+            alt="Table Tennis"
+            style="width: 26px; height: 26px; margin-bottom: 10px"
+          />
+          <span
+            style="
+              color: white;
+              font-size: 12px;
+              text-align: center;
+              line-height: 14px;
+            "
+            >Table Tennis</span
+          >
+        </div>
+      </div>
+
+      <!-- JavaScript for Carousel Buttons -->
+      <script>
+        const container = document.getElementById("sportsContainer");
+        const scrollLeftBtn = document.getElementById("scrollLeft");
+        const scrollRightBtn = document.getElementById("scrollRight");
+
+        scrollLeftBtn.addEventListener("click", () => {
+          container.scrollBy({ left: -100, behavior: "smooth" });
+        });
+
+        scrollRightBtn.addEventListener("click", () => {
+          container.scrollBy({ left: 100, behavior: "smooth" });
+        });
+      </script>
+    </div>
+
+    <!-- Trending Section end -->
+
+    <br />
+
+    <!-- Include Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+
+    <div class="container-fluid">
+      <div class="providers-header">
+        <h3>Game Providers</h3>
+        <div class="header-actions">
+          <span class="see-more">See More</span>
+          <div class="d-flex">
+            <button
+              class="nav-btn providers-prev"
+              style="color: white; background-color: #444"
+            >
+              &lt;
+            </button>
+            &nbsp;
+            <button
+              class="nav-btn providers-next"
+              style="color: white; background-color: #444"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swiper -->
+      <div class="swiper providers-swiper">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide">
+            <div class="providers-grid">
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="swiper-slide">
+            <div class="providers-grid">
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwbG9nb3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+              <div class="provider-card">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdhbWluZyUyMGxvZ298ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                  alt="Gaming Provider"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+    <!-- IN PLAY Section -->
+
+    <style>
+      /* IN PLAY Title */
+      .inplay-title {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 15px;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+
+      .inplay-title::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background-color: red;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      /* Cricket Header */
+      .sport-header {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(90deg, #6a206d, #321b58);
+        padding: 10px 15px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .sport-header span.icon {
+        margin-right: 8px;
+      }
+
+      .sport-header span.count {
+        background: #fff;
+        color: #000;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 13px;
+        margin-left: 8px;
+      }
+
+      .match-card {
+        background: #101a20;
+        padding: 15px;
+        border-bottom: 1px solid #1d2a30;
+        margin-bottom: 8px;
+        border-radius: 8px;
+      }
+
+      .match-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .match-teams {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .match-teams span:first-child {
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .match-teams span:last-child {
+        color: #ccc;
+        font-size: 13px;
+      }
+
+      .tv-icon {
+        color: gold;
+        font-size: 16px;
+      }
+
+      .odds-grid {
+        display: flex;
+        gap: 10px;
+      }
+
+      .split-box {
+        background: transparent;
+        display: flex;
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 48px;
+        flex: 1;
+        min-width: 100px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .split-box:hover {
+        transform: translateY(-2px);
+      }
+
+      .split-box div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .left {
+        background: #2a4eb5;
+        color: #fff;
+      }
+
+      .right {
+        background: #e085a6;
+        color: #fff;
+      }
+
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        color: black;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 2px solid #0f1a1f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        z-index: 2;
+      }
+
+      /* Betting Panel */
+      .betting-panel {
+        display: none;
+        background: linear-gradient(to bottom, #ffffff, #f8fafc);
+        color: #000000;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+
+      .betting-panel h3 {
+        margin: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #1e293b;
+      }
+
+      .form-row {
+        margin-bottom: 15px;
+      }
+
+      .form-row label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #475569;
+      }
+
+      .form-row input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        box-sizing: border-box;
+        background-color: #f1f5f9;
+      }
+
+      .quick-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .quick-buttons button {
+        flex: 1 1 30%;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #ffffff;
+        transition: all 0.2s;
+      }
+
+      .quick-buttons button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .btn-purple {
+        background: linear-gradient(to bottom, #b300b3, #990099);
+      }
+
+      .btn-blue {
+        background: linear-gradient(to bottom, #0099cc, #0077aa);
+      }
+
+      .btn-gray {
+        background: linear-gradient(to bottom, #777777, #555555);
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-cancel {
+        background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+        color: #475569;
+        border: 1px solid #cbd5e1;
+      }
+
+      .btn-place {
+        background: linear-gradient(to bottom, #32d67c, #28a745);
+        color: #ffffff;
+      }
+
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #475569;
+        justify-content: flex-end;
+      }
+
+      .toggle-row input[type="checkbox"] {
+        margin-left: 10px;
+        transform: scale(1.2);
+      }
+
+      /* Typography and special text coloring */
+      .liability {
+        background-color: #f8d0cd;
+        color: #c0392b;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+        font-size: 14px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .max-market {
+        font-size: 14px;
+        color: #333333;
+        text-align: right;
+        margin-top: -40px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      /* Loading animation */
+      .loader-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader {
+        width: 60px;
+        height: 60px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #32d67c;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loader-content {
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        color: #1e293b;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .loader-content p {
+        margin-top: 15px;
+        font-weight: 500;
+      }
+
+      /* Alert box */
+      .alert-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .alert-box {
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        color: #1e293b;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 350px;
+      }
+
+      .alert-icon {
+        font-size: 40px;
+        color: #e53e3e;
+        margin-bottom: 15px;
+      }
+
+      .alert-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #c53030;
+      }
+
+      .alert-message {
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .alert-button {
+        padding: 10px 20px;
+        background: linear-gradient(to bottom, #e53e3e, #c53030);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.2s;
+      }
+
+      .alert-button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Overlay */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+    </style>
+
+    <div class="container-fluid">
+      <!-- IN PLAY Title -->
+      <div class="inplay-title">IN PLAY</div>
+
+      <!-- Cricket Header -->
+      <div class="sport-header">
+        <span class="icon">🏏</span> Cricket
+        <span class="count">6</span>
+      </div>
+
+      <!-- Match 1 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <a href="matchinfo.html"><span>India</span></a>
+            <a href="matchinfo.html"><span>Pakistan</span></a>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="1.26" data-side="back">
+            <div class="left">1.25</div>
+            <div class="right">1.26</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="lay">
+            <div class="left">-</div>
+            <div class="right">1</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="5" data-side="back">
+            <div class="left">4.8</div>
+            <div class="right">5</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match 2 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <span>Ireland</span>
+            <span>England</span>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="12" data-side="back">
+            <div class="left">11</div>
+            <div class="right">12</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="lay">
+            <div class="left">-</div>
+            <div class="right">1</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="1.1" data-side="back">
+            <div class="left">1.09</div>
+            <div class="right">1.1</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match 3 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <span>Queensland Bulls</span>
+            <span>Western Australia</span>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="1.89" data-side="back">
+            <div class="left">1.88</div>
+            <div class="right">1.89</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="back">
+            <div class="left">1</div>
+            <div class="right">-</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="2.14" data-side="back">
+            <div class="left">2.12</div>
+            <div class="right">2.14</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Betting Panel -->
+    <div id="bettingPanel" class="betting-panel">
+      <div class="header-info">
+        <div class="liability">Liability : ₹0.00</div>
+        <div class="max-market">Max Market: ₹ 10,00,000</div>
+      </div>
+
+      <h3>Place Bet</h3>
+
+      <div class="form-row">
+        <label>ODDS</label>
+        <input type="number" id="oddsInput" readonly />
+      </div>
+
+      <div class="form-row">
+        <label>STAKES</label>
+        <input type="number" id="stakeInput" placeholder="0" />
+      </div>
+
+      <div class="quick-buttons">
+        <button class="btn-purple" onclick="adjustStake(1000)">+1000</button>
+        <button class="btn-purple" onclick="adjustStake(10000)">+10000</button>
+        <button class="btn-purple" onclick="adjustStake(20000)">+20000</button>
+        <button class="btn-blue" onclick="setStake('min')">MIN</button>
+        <button class="btn-blue" onclick="setStake('max')">MAX</button>
+        <button class="btn-gray" onclick="editStake()">EDIT STAKES</button>
+        <button class="btn-gray" onclick="clearStake()">CLEAR</button>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-cancel" onclick="closeBetPanel()">
+          Cancel Bet
+        </button>
+        <button class="btn btn-place" onclick="placeBet()">Place Bet</button>
+      </div>
+
+      <div class="toggle-row">
+        Confirm bet before placing
+        <input type="checkbox" id="confirmToggle" />
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="closeBetPanel()"></div>
+
+    <!-- Loading Animation -->
+    <div id="loaderContainer" class="loader-container">
+      <div class="loader-content">
+        <div class="loader"></div>
+        <p>Processing your bet...</p>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertContainer" class="alert-container">
+      <div class="alert-box">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-title">Bet Not Allowed</div>
+        <div class="alert-message">
+          Unmatched bets are not allowed. Please try again with different odds.
+        </div>
+        <button class="alert-button" onclick="closeAlert()">OK</button>
+      </div>
+    </div>
+
+    <script>
+      // Store the current odds value and side
+      let currentOdds = 0;
+      let currentSide = "";
+
+      // Add event listeners to all split boxes
+      document.querySelectorAll(".split-box").forEach((box) => {
+        box.addEventListener("click", function () {
+          const odds = this.getAttribute("data-odds");
+          const side = this.getAttribute("data-side");
+          openBetPanel(odds, side);
+        });
+      });
+
+      function openBetPanel(odds, side) {
+        const panel = document.getElementById("bettingPanel");
+        const overlay = document.getElementById("overlay");
+        panel.style.display = "block";
+        overlay.style.display = "block";
+        currentOdds = odds;
+        currentSide = side;
+        document.getElementById("oddsInput").value = odds;
+        document.getElementById("stakeInput").value = "";
+
+        // Calculate and update liability
+        updateLiability();
+      }
+
+      function closeBetPanel() {
+        document.getElementById("bettingPanel").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+      }
+
+      function adjustStake(amount) {
+        const input = document.getElementById("stakeInput");
+        const current = parseInt(input.value) || 0;
+        input.value = current + amount;
+        updateLiability();
+      }
+
+      function clearStake() {
+        document.getElementById("stakeInput").value = "";
+        updateLiability();
+      }
+
+      function editStake() {
+        const val = prompt("Enter custom stake amount:");
+        if (val !== null && !isNaN(val) && val >= 0) {
+          document.getElementById("stakeInput").value = val;
+          updateLiability();
+        }
+      }
+
+      function setStake(type) {
+        const input = document.getElementById("stakeInput");
+        if (type === "min") {
+          input.value = 100; // minimum stake
+        } else if (type === "max") {
+          input.value = 1000000; // maximum stake (10,00,000 as per the design)
+        }
+        updateLiability();
+      }
+
+      function updateLiability() {
+        const stakeInput = document.getElementById("stakeInput");
+        const stake = parseFloat(stakeInput.value) || 0;
+        const liability = stake * (currentOdds - 1);
+
+        const liabilityElement = document.querySelector(".liability");
+        liabilityElement.textContent = `Liability : ₹${liability.toFixed(2)}`;
+      }
+
+      function showLoader() {
+        document.getElementById("loaderContainer").style.display = "flex";
+      }
+
+      function hideLoader() {
+        document.getElementById("loaderContainer").style.display = "none";
+      }
+
+      function showAlert() {
+        document.getElementById("alertContainer").style.display = "flex";
+      }
+
+      function closeAlert() {
+        document.getElementById("alertContainer").style.display = "none";
+      }
+
+      function placeBet() {
+        const stakeInput = document.getElementById("stakeInput");
+        const stake = parseFloat(stakeInput.value) || 0;
+        const confirmToggle = document.getElementById("confirmToggle").checked;
+
+        if (stake <= 0) {
+          alert("Please enter a valid stake amount");
+          return;
+        }
+
+        if (confirmToggle) {
+          const confirmed = confirm(
+            `Place bet of ₹${stake} at odds ${currentOdds}?`
+          );
+          if (!confirmed) return;
+        }
+
+        // Show loading animation
+        showLoader();
+
+        // Simulate processing time
+        setTimeout(function () {
+          // Hide loader
+          hideLoader();
+
+          // Show alert for unmatched bets
+          showAlert();
+        }, 2000); // 2 seconds delay to simulate processing
+      }
+
+      // Add event listener to update liability when stake changes
+      document
+        .getElementById("stakeInput")
+        .addEventListener("input", updateLiability);
+    </script>
+
+    <body style="margin: 0; padding-bottom: 65px">
+      <!-- Game Providers Section -->
+      <div class="container-fluid">
+        <div class="providers-header">
+          <h3>Game Providers</h3>
+        </div>
+      </div>
+
+      <!-- Indian Card Games start -->
+      <style>
+        #indian-cards {
+          margin-top: 30px;
+          width: 100%;
+          padding-left: 20px;
+          padding-right: 20px;
+          box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+          #indian-cards {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        .indian-card-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .indian-card-header-row h3 {
+          font-weight: 700;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0;
+        }
+
+        .indian-card-nav-buttons {
+          display: flex;
+          gap: 8px;
+        }
+
+        .indian-card-nav-buttons button {
+          background-color: grey;
+          border: none;
+          border-radius: 4px;
+          width: 32px;
+          height: 32px;
+          color: white;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
+          user-select: none;
+          box-shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+          transition: background-color 0.3s ease;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+        }
+
+        .indian-card-nav-buttons button:hover {
+          background-color: #294a6d;
+        }
+
+        .indian-card-swiper {
+          width: 100%;
+          padding-bottom: 20px;
+          position: relative;
+        }
+
+        .indian-card-slide {
+          width: 140px !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .indian-card-img {
+          width: 140px;
+          height: 100px;
+          border-radius: 8px;
+          border: 3px solid #e60073;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .indian-card-img img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        .indian-card-img:hover img {
+          transform: scale(1.1);
+        }
+      </style>
+
+      <section id="indian-cards">
+        <div class="indian-card-header-row">
+          <h3>
+            <img src="/images/heart.png" alt="Icon" width="20" />
+            Indian Card Games
+          </h3>
+          <div class="indian-card-nav-buttons">
+            <button class="indian-card-prev" aria-label="Previous">
+              &#8249;
+            </button>
+            <button class="indian-card-next" aria-label="Next">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="swiper indian-card-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-02.png" alt="Game 1" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-07.png" alt="Game 2" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-24.png" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-25.jpeg" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-26.png" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-02.png" alt="Game 1" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-07.png" alt="Game 2" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-24.png" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-25.jpeg" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-26.png" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-02.png" alt="Game 1" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-07.png" alt="Game 2" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-24.png" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-25.jpeg" alt="Game 3" />
+              </div>
+            </div>
+            <div class="swiper-slide indian-card-slide">
+              <div class="indian-card-img">
+                <img src="/images/indian games posters-26.png" alt="Game 3" />
+              </div>
+            </div>
+            <!-- Add more slides -->
+          </div>
+        </div>
+      </section>
+      <script>
+        const indianCardSwiper = new Swiper(".indian-card-swiper", {
+          slidesPerView: "auto",
+          spaceBetween: 6,
+          navigation: {
+            nextEl: ".indian-card-next",
+            prevEl: ".indian-card-prev",
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 2.3,
+              spaceBetween: 4,
+            },
+            480: {
+              slidesPerView: 3.3,
+              spaceBetween: 5,
+            },
+            768: {
+              slidesPerView: 4.3,
+              spaceBetween: 6,
+            },
+            1024: {
+              slidesPerView: 5.3,
+              spaceBetween: 8,
+            },
+          },
+        });
+      </script>
+
+      <!-- Indian Card Games end -->
+
+      <!-- GAME SHOWS start -->
+
+      <style>
+        #game-shows {
+          margin-top: 30px;
+          width: 100%;
+          padding-left: 20px;
+          padding-right: 20px;
+          box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+          #game-shows {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        .game-shows-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .game-shows-header-row h3 {
+          font-weight: 700;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0;
+        }
+
+        .game-shows-nav-buttons {
+          display: flex;
+          gap: 8px;
+        }
+
+        .game-shows-nav-buttons button {
+          background-color: grey;
+          border: none;
+          border-radius: 4px;
+          width: 32px;
+          height: 32px;
+          color: white;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
+          user-select: none;
+          box-shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+          transition: background-color 0.3s ease;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+        }
+
+        .game-shows-nav-buttons button:hover {
+          background-color: #294a6d;
+        }
+
+        .game-shows-swiper {
+          width: 100%;
+          padding-bottom: 20px;
+          position: relative;
+        }
+
+        .game-show-slide {
+          width: 140px !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .game-show-img {
+          width: 140px;
+          height: 130px; /* taller than Indian Card Games */
+          border-radius: 8px;
+          border: 3px solid #e60073;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .game-show-img img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        .game-show-img:hover img {
+          transform: scale(1.1);
+        }
+      </style>
+      <section id="game-shows">
+        <div class="game-shows-header-row">
+          <!-- <h3>🎮 Game Shows</h3> -->
+          <h3>
+            <img src="/images/fire.png" alt="Icon" width="20" />
+            Game Shows
+          </h3>
+          <div class="game-shows-nav-buttons">
+            <button class="game-shows-prev" aria-label="Previous">
+              &#8249;
+            </button>
+            <button class="game-shows-next" aria-label="Next">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="swiper game-shows-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/_XXXTREMELIGHTINGROULETTE_-1691760908430.jpeg"
+                  alt="Game Show 1"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/FOOTBALLSTUDIO-1691761185312.jpeg"
+                  alt="Game Show 2"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/CRAZYTIME-1691760949698.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/DEALNODEAL-1691761036177.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/DREAMCATCHER-1691761147220.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/FUNKYTIME-1691760822997.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/MEGABALL-1691761311219.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/DREAMCATCHER-1691761147220.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/FUNKYTIME-1691760822997.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/MEGABALL-1691761311219.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/DREAMCATCHER-1691761147220.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/FUNKYTIME-1691760822997.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <div class="swiper-slide game-show-slide">
+              <div class="game-show-img">
+                <img
+                  src="/images/MEGABALL-1691761311219.jpeg"
+                  alt="Game Show 3"
+                />
+              </div>
+            </div>
+            <!-- Add more slides as needed -->
+          </div>
+        </div>
+      </section>
+      <script>
+        const gameShowsSwiper = new Swiper(".game-shows-swiper", {
+          slidesPerView: "auto",
+          spaceBetween: 6,
+          navigation: {
+            nextEl: ".game-shows-next",
+            prevEl: ".game-shows-prev",
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 2.3,
+              spaceBetween: 4,
+            },
+            480: {
+              slidesPerView: 3.3,
+              spaceBetween: 5,
+            },
+            768: {
+              slidesPerView: 4.3,
+              spaceBetween: 6,
+            },
+            1024: {
+              slidesPerView: 5.3,
+              spaceBetween: 8,
+            },
+          },
+        });
+      </script>
+
+      <!-- GAME SHOWS end -->
+
+      <!-- brand ammbasder start -->
+
+      <style>
+        #ambassadors {
+          margin-top: 30px;
+          width: 100%;
+          padding-left: 20px;
+          padding-right: 20px;
+          box-sizing: border-box;
+        }
+
+        /* Remove left/right padding on mobile */
+        @media (max-width: 768px) {
+          #ambassadors {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        /* Header with text left and nav buttons right */
+        .ambassador-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .ambassador-header-row h3 {
+          font-weight: 700;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0;
+        }
+
+        /* Navigation buttons container */
+        .ambassador-nav-buttons {
+          display: flex;
+          gap: 8px;
+        }
+
+        .ambassador-nav-buttons button {
+          background-color: grey;
+          border: none;
+          border-radius: 4px;
+          width: 32px;
+          height: 32px;
+          color: white;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
+          user-select: none;
+          box-shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+          transition: background-color 0.3s ease;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+        }
+
+        .ambassador-nav-buttons button:hover {
+          background-color: #294a6d;
+        }
+
+        /* Swiper container */
+        .ambassador-swiper {
+          width: 100%;
+          padding-bottom: 20px;
+          position: relative;
+        }
+
+        /* Slides - circle containers */
+        .ambassador-swiper-slide {
+          width: 110px !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        /* Circle images */
+        .ambassador-img {
+          width: 110px;
+          height: 110px;
+          border-radius: 50%;
+          border: 3px solid #e60073;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .ambassador-img img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        /* Hover effect on image */
+        .ambassador-img:hover img {
+          transform: scale(1.1);
+        }
+      </style>
+
+      <section id="ambassadors">
+        <div class="ambassador-header-row">
+          <h3>🔥 OUR AMBASSADORS</h3>
+          <div class="ambassador-nav-buttons">
+            <button class="ambassador-providers-prev" aria-label="Previous">
+              &#8249;
+            </button>
+            <button class="ambassador-providers-next" aria-label="Next">
+              &#8250;
+            </button>
+          </div>
+        </div>
+
+        <!-- Swiper container -->
+        <div class="swiper ambassador-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/urfi.webp" alt="Ambassador 1" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/sudesh.png" alt="Ambassador 2" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/vikrant.png" alt="Ambassador 3" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/tushar.png" alt="Ambassador 4" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/urfi.webp" alt="Ambassador 1" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/sudesh.png" alt="Ambassador 2" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/vikrant.png" alt="Ambassador 3" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/tushar.png" alt="Ambassador 4" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/urfi.webp" alt="Ambassador 1" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/sudesh.png" alt="Ambassador 2" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/vikrant.png" alt="Ambassador 3" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/tushar.png" alt="Ambassador 4" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/vikrant.png" alt="Ambassador 3" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/tushar.png" alt="Ambassador 4" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/urfi.webp" alt="Ambassador 1" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/sudesh.png" alt="Ambassador 2" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/vikrant.png" alt="Ambassador 3" />
+              </div>
+            </div>
+            <div class="swiper-slide ambassador-swiper-slide">
+              <div class="ambassador-img">
+                <img src="/images/tushar.png" alt="Ambassador 4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Swiper Initialization -->
+      <script>
+        const swiper = new Swiper(".ambassador-swiper", {
+          slidesPerView: "auto",
+          spaceBetween: 3,
+          navigation: {
+            nextEl: ".ambassador-providers-next",
+            prevEl: ".ambassador-providers-prev",
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 2.3,
+              spaceBetween: 2,
+            },
+            480: {
+              slidesPerView: 3.3,
+              spaceBetween: 2,
+            },
+            768: {
+              slidesPerView: 4.3,
+              spaceBetween: 3,
+            },
+            1024: {
+              slidesPerView: 5.3,
+              spaceBetween: 3,
+            },
+          },
+        });
+      </script>
+
+      <!-- barnd ammbasder end  -->
+
+      <style>
+        /* Footer Styles */
+        .footer {
+          background-color: #070d13;
+          padding: 60px 20px 40px;
+          border-radius: 10px;
+          width: 100%;
+          max-width: 1480px;
+        }
+
+        /* .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      } */
+
+        /* Top Row: Logo + Navigation */
+        .footer-top {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .footer-logo img {
+          width: auto;
+          height: 100px;
+        }
+
+        .footer-logo span {
+          font-size: 28px;
+          font-weight: bold;
+          color: #d428a0;
+        }
+
+        .footer .top-links {
+          display: flex;
+          gap: 25px;
+          flex-wrap: wrap;
+        }
+
+        .footer .top-links a {
+          color: #ffffff;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 16px;
+          transition: color 0.3s;
+          position: relative;
+        }
+
+        .footer .top-links a:hover {
+          color: #d428a0;
+        }
+
+        .footer .top-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 0;
+          background-color: #d428a0;
+          transition: width 0.3s;
+        }
+
+        .footer .top-links a:hover::after {
+          width: 100%;
+        }
+
+        /* Middle: About / Blog / Responsible */
+        .footer-links {
+          text-align: center;
+          margin-bottom: 40px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 40px;
+        }
+
+        .footer-links a {
+          color: #c2c2c2;
+          text-decoration: none;
+          font-size: 16px;
+          transition: color 0.3s;
+          padding: 8px 15px;
+          border-radius: 4px;
+          position: relative;
+        }
+
+        .footer-links a:hover {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Social Media Section */
+        .footer .social-section {
+          text-align: center;
+          margin-bottom: 30px;
+          width: 100%;
+        }
+
+        .footer .social-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .social-icons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 40px;
+        }
+
+        .footer .social-icons a {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 20px;
+          text-decoration: none;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer .telegram {
+          background-color: #0088cc;
+        }
+        .footer .instagram {
+          background: linear-gradient(
+            45deg,
+            #f09433,
+            #e6683c,
+            #dc2743,
+            #cc2366,
+            #bc1888
+          );
+        }
+        .footer .facebook {
+          background-color: #3b5998;
+        }
+
+        /* Download Button */
+        .footer .download-section {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .footer .download-button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(90deg, #c00090, #8000ff);
+          color: white;
+          padding: 15px 25px;
+          border-radius: 12px;
+          text-decoration: none;
+          max-width: 320px;
+          width: 100%;
+          font-weight: bold;
+          font-size: 16px;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .download-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(128, 0, 255, 0.3);
+        }
+
+        .footer .download-button i {
+          margin-right: 12px;
+          font-size: 24px;
+          color: white;
+        }
+
+        .footer .download-text {
+          flex-grow: 1;
+          text-align: left;
+          font-size: 14px;
+          color: white;
+        }
+
+        .footer .download-text strong {
+          display: block;
+          font-size: 16px;
+        }
+
+        .footer .arrow {
+          font-size: 20px;
+          margin-left: 10px;
+          color: white;
+        }
+
+        /* Payment Methods Section */
+        .footer .payment-section {
+          width: 100%;
+          margin: 30px 0;
+          text-align: center;
+        }
+
+        .footer .payment-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .payment-methods {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-top: 15px;
+        }
+
+        .footer .payment-method {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 20px;
+          border-radius: 8px;
+          color: #c2c2c2;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .footer .payment-method:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          transform: translateY(-3px);
+        }
+
+        .footer .payment-method i {
+          font-size: 20px;
+        }
+
+        .footer .copyright {
+          margin-top: 40px;
+          text-align: center;
+          color: #c2c2c2;
+          font-size: 14px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .footer-top {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+          }
+
+          .footer .top-links {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+          }
+
+          .footer-links {
+            flex-direction: column;
+            gap: 15px;
+          }
+
+          .footer .payment-methods {
+            gap: 10px;
+          }
+
+          .footer .payment-method {
+            padding: 8px 15px;
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .footer-logo span {
+            font-size: 24px;
+          }
+
+          .footer .download-button {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            padding: 15px;
+          }
+
+          .footer .download-text {
+            text-align: center;
+          }
+
+          .footer .arrow {
+            display: none;
+          }
+
+          .footer .social-icons a {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+          }
+
+          .footer .payment-methods {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .footer .payment-method {
+            width: 200px;
+            justify-content: center;
+          }
+        }
+      </style>
+
+      <!-- FOOTER START -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <!-- Top Row: Logo + Navigation -->
+          <div class="footer-top">
+            <div class="footer-logo">
+              <img src="/images/logo.png" alt="Dice Logo" />
+            </div>
+
+            <div class="top-links">
+              <a href="#">ABOUT</a>
+              <a href="#">REGULATIONS</a>
+              <a href="#">HELP</a>
+            </div>
+          </div>
+
+          <!-- Middle Section: Additional Links -->
+          <div class="footer-links">
+            <a href="#">About us</a>
+            <a href="#">Responsible Gaming</a>
+            <a href="#">Blog</a>
+          </div>
+
+          <!-- Social Media Section -->
+          <div class="social-section">
+            <div class="social-title">Social Networks</div>
+            <div class="social-icons">
+              <a href="#" class="telegram" title="Telegram"
+                ><i class="fab fa-telegram-plane"></i
+              ></a>
+              <a href="#" class="instagram" title="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="facebook" title="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Download Button -->
+          <div class="download-section">
+            <a href="#" class="download-button" id="downloadApp">
+              <i class="fab fa-android"></i>
+              <div class="download-text">
+                Download<br />
+                <strong>ANDROID APP</strong>
+              </div>
+              <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+          </div>
+
+          <!-- Payment Methods Section -->
+          <div class="payment-section">
+            <div class="payment-title">Payment Methods</div>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-mobile-alt"></i>
+                <span>UPI</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-wallet"></i>
+                <span>Paytm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Copyright -->
+          <div class="copyright">
+            <p>
+              &copy; 2023 11exch. All rights reserved. Gambling can be
+              addictive, please play responsibly.
+            </p>
+          </div>
+        </div>
+      </footer>
+      <!-- FOOTER END -->
+
+      <!-- JavaScript -->
+      <script>
+        document
+          .getElementById("downloadApp")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Create a nice notification instead of alert
+            const notification = document.createElement("div");
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #c00090, #8000ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s forwards;
+          `;
+            notification.innerHTML = "Redirecting to Android App Download...";
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+              notification.style.animation = "slideOut 0.5s forwards";
+              setTimeout(() => {
+                document.body.removeChild(notification);
+              }, 500);
+            }, 3000);
+
+            // Uncomment and add your download URL below:
+            // window.location.href = "https://your-download-link.com";
+          });
+
+        // Add keyframes for animation
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @keyframes slideIn {
+          from { transform: translateX(100px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100px); opacity: 0; }
+        }
+      `;
+        document.head.appendChild(style);
+      </script>
+
+      <!-- Include Font Awesome (required for icons) -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+
+      <!-- Bottom Navigation -->
+      <div
+        style="
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 70px;
+          background: #2e153e;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          border-top-left-radius: 16px;
+          border-top-right-radius: 16px;
+          z-index: 9999;
+        "
+      >
+        <!-- Casino -->
+        <a
+          href="casino.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-dice"></i>
+          </div>
+          Casino
+        </a>
+
+        <!-- Sports -->
+        <a
+          href="sports.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-futbol"></i>
+          </div>
+          Sports
+        </a>
+
+        <!-- Home Button -->
+        <a
+          href="index.html"
+          style="
+            text-align: center;
+            flex: 1;
+            text-decoration: none;
+            margin-top: -30px;
+          "
+        >
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: #b122d9;
+              border-radius: 50%;
+              border: 6px solid #0c1013;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 24px;
+              color: white;
+              margin: auto;
+            "
+          >
+            <i class="fas fa-home"></i>
+          </div>
+        </a>
+
+        <!-- Open Bets -->
+        <a
+          href="openbets.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-tv"></i>
+          </div>
+          Open Bets
+        </a>
+
+        <!-- Menu -->
+        <a
+          href="menu.html"
+          style="
+            text-align: center;
+            flex: 1;
+            color: #9b8fa3;
+
+            font-size: 13px;
+            background-color: linear-gradient(to right, #b833dc, #ff00cc);
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-th"></i>
+          </div>
+          Menu
+        </a>
+      </div>
+    </body>
+
+    <!-- transding now script  start-->
+    <script>
+      function setupSlider(sliderClass, prevBtn, nextBtn) {
+        const slider = document.querySelector(sliderClass);
+        const prev = document.querySelector(prevBtn);
+        const next = document.querySelector(nextBtn);
+
+        next.addEventListener("click", () => {
+          slider.scrollBy({ left: 200, behavior: "smooth" });
+        });
+
+        prev.addEventListener("click", () => {
+          slider.scrollBy({ left: -200, behavior: "smooth" });
+        });
+      }
+
+      setupSlider(".trending-slider", ".trend-prev", ".trend-next");
+      setupSlider(".sports-slider", ".sports-prev", ".sports-next");
+    </script>
+    <!-- game provider  -->
+
+    <!-- Swiper JS -->
+    <script>
+      const providerSwiper = new Swiper(".providers-swiper", {
+        slidesPerView: 1, // only 1 grid (3x3) per slide
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".providers-next",
+          prevEl: ".providers-prev",
+        },
+        loop: true,
+        grabCursor: true,
+        keyboard: { enabled: true },
+      });
+    </script>
+
+    <!-- end of game provider -->
+
+    <!-- transding now script end  -->
+
+    <!-- whstapp icon start -->
+    <!-- ✅ WhatsApp Button -->
+    <div class="whatsapp-popup">
+      <div class="whatsapp-icon">
+        <a href="https://wa.me/919999999999" target="_blank">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/220/220236.png"
+            alt="WhatsApp"
+          />
+          <div class="tooltip-text">
+            Play and win!<br />Get a new install via WhatsApp
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- whatsapp icon end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

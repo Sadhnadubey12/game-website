@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Account - 11exch</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0e141a;
+        color: #fff;
+      }
+      .container {
+        padding: 15px;
+        max-width: 100%;
+      }
+
+      /* Top Navbar */
+      .top-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0e141a;
+        padding: 10px 15px;
+      }
+      .top-navbar .logo {
+        font-size: 18px;
+        font-weight: bold;
+        color: #e800a5;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .top-navbar .center {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .top-navbar .center span {
+        font-weight: bold;
+        font-size: 14px;
+        background: #122033;
+        padding: 4px 8px;
+        border-radius: 6px;
+      }
+      .top-navbar .deposit-btn {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .top-navbar .close-btn {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* User Header */
+      .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #122033;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+      .user-header .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .user-header .left i {
+        font-size: 20px;
+        background: #122033;
+        padding: 10px;
+        border-radius: 50%;
+      }
+      .user-header .left span {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .user-header .right i {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* Wallet Box */
+      .wallet-card {
+        background: linear-gradient(to right, #530c67, #590c4a);
+        border-radius: 15px;
+        padding: 15px;
+        color: #fff;
+        position: relative;
+        margin: 15px 0;
+      }
+
+      .wallet-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .wallet-balance {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .wallet-balance span {
+        display: block;
+        font-size: 13px;
+        font-weight: normal;
+        margin-top: 3px;
+      }
+
+      .redeem-btn {
+        background: #22c55e;
+        border: none;
+        color: #fff;
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .wallet-icon {
+        font-size: 28px;
+        position: absolute;
+        right: 10px;
+        top: -5px;
+      }
+
+      .wallet-details {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+      }
+
+      .wallet-box {
+        flex: 1;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 8px;
+        margin: 0 5px;
+      }
+
+      .wallet-box span {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .wallet-box p {
+        font-size: 14px;
+        margin: 4px 0 0;
+        font-weight: bold;
+      }
+
+      /* Action Buttons */
+      .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+      .action-buttons button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0 5px;
+        font-size: 14px;
+      }
+      .withdraw-btn {
+        background: #122033;
+        color: #fff;
+      }
+      .deposit-big-btn {
+        background: #28a745;
+        color: #fff;
+      }
+
+      /* Menu List */
+      .menu-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+      .menu-list li {
+        background: #122033;
+        padding: 14px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .menu-list li i:first-child {
+        margin-right: 10px;
+      }
+      .menu-list li:hover {
+        background: #122033;
+      }
+
+      /* App Links */
+      .app-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 10px;
+      }
+      .app-box {
+        flex: 1;
+        background: #122033;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      /* Logout */
+      .logout-btn {
+        background: linear-gradient(90deg, #e800a5, #8a2be2);
+        border: none;
+        color: #fff;
+        width: 100%;
+        padding: 14px;
+        margin-top: 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .wallet-stats {
+          flex-direction: column;
+        }
+        .wallet-stats div {
+          margin: 5px 0;
+        }
+        .action-buttons {
+          flex-direction: column;
+        }
+        .action-buttons button {
+          margin: 5px 0;
+        }
+        .app-links {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Banner start -->
+
+    <div
+      id="installBanner"
+      style="
+        background: linear-gradient(to right, #061c3d, #02122a);
+        padding: 10px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+        color: white;
+        font-family: Arial, sans-serif;
+      "
+    >
+      <!-- Left Side -->
+      <div style="display: flex; align-items: center; gap: 12px">
+        <!-- Close Button -->
+        <button
+          id="closeBtn"
+          style="
+            background-color: #d9d9d9;
+            border: none;
+            color: #ff007f;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-size: 16px;
+            line-height: 26px;
+            text-align: center;
+            cursor: pointer;
+          "
+          aria-label="Close"
+          title="Close"
+        >
+          ✕
+        </button>
+
+        <!-- Dice Icon -->
+        <img
+          src="images/diceimage.png"
+          alt="Dice"
+          style="width: 48px; height: 48px; border-radius: 12px"
+        />
+
+        <!-- Text Content -->
+        <div style="display: flex; flex-direction: column">
+          <div style="font-weight: bold; font-size: 16px; color: white">
+            Install On IOS
+          </div>
+          <div style="font-size: 13px; color: #ccc">
+            Instant Download on your device
+          </div>
+          <div style="font-size: 14px; color: gold; margin-top: 2px">★★★★★</div>
+        </div>
+      </div>
+
+      <!-- Right Side Button -->
+      <button
+        style="
+          background: #ff007f;
+          color: white;
+          border: none;
+          font-size: 13px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+        "
+      >
+        Instructions
+      </button>
+    </div>
+
+    <script>
+      document.getElementById("closeBtn").addEventListener("click", () => {
+        document.getElementById("installBanner").style.display = "none";
+      });
+    </script>
+
+    <!-- Top Banner end -->
+
+    <!-- Top Navbar -->
+    <div class="top-navbar">
+      <a
+        class="navbar-brand"
+        href="index.html"
+        style="display: flex; align-items: center; gap: 8px"
+      >
+        <img
+          src="/images/logo.png"
+          alt="11exch Logo"
+          style="height: 50px; width: auto"
+        />
+      </a>
+      <div class="center">
+        <span>₹ 0</span>
+        <button class="deposit-btn">Deposit</button>
+      </div>
+      <div class="close-btn"><i class="fa fa-times"></i></div>
+    </div>
+
+    <div class="container">
+      <!-- User Header -->
+      <div class="user-header">
+        <div class="left">
+          <i class="fa fa-user"></i>
+          <span>+91-8602263337</span>
+        </div>
+        <div class="right">
+          <i class="fa fa-bell"></i>
+        </div>
+      </div>
+
+      <!-- Wallet Box -->
+      <!-- Main Wallet Section -->
+      <div class="wallet-card">
+        <div class="wallet-header">
+          <div class="wallet-balance">
+            ₹0
+            <span
+              >Main Wallet
+              <button class="redeem-btn">Redeem</button>
+            </span>
+          </div>
+          <div class="wallet-icon">💼</div>
+        </div>
+
+        <div class="wallet-details">
+          <div class="wallet-box">
+            <span>Free Money <i>ⓘ</i></span>
+            <p>₹0</p>
+          </div>
+          <div class="wallet-box">
+            <span>Exposure</span>
+            <p>₹0</p>
+          </div>
+          <div class="wallet-box">
+            <span>Life Time Bonus</span>
+            <p>₹0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Withdraw / Deposit -->
+      <div class="action-buttons">
+        <button class="withdraw-btn">
+          <i class="fa fa-wallet"></i> Withdraw
+        </button>
+        <button class="deposit-big-btn">
+          <i class="fa fa-money-bill"></i> Deposit
+        </button>
+      </div>
+
+      <!-- Menu List -->
+      <ul class="menu-list">
+        <li>
+          <span
+            ><i class="fa fa-file-invoice"></i> Deposit Withdraw Report</span
+          >
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-handshake"></i> Refer and Earn</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-dice"></i> Open Bets</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-coins"></i> Bonus</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-chart-line"></i> Betting Profit Loss</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-file-alt"></i> Account Statement</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <span><i class="fa fa-cog"></i> Settings</span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+      </ul>
+
+      <!-- App Download Links -->
+      <div class="app-links">
+        <div class="app-box">
+          <i class="fa fa-apple"></i><br />
+          iOS App
+        </div>
+        <div class="app-box">
+          <i class="fa fa-android"></i><br />
+          Android App
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <button
+        class="logout-btn"
+        onclick="window.location.href='index.html'"
+      >
+        Log Out
+      </button>
+    </div>
+  </body>
+</html>
