@@ -19,7 +19,6 @@
         box-sizing: border-box;
       }
 
-      /* IN PLAY Title */
       .inplay-title {
         display: flex;
         align-items: center;
@@ -38,7 +37,6 @@
         margin-right: 8px;
       }
 
-      /* Cricket Header */
       .sport-header {
         display: flex;
         align-items: center;
@@ -159,7 +157,7 @@
         z-index: 2;
       }
 
-      /* BETTING MODAL */
+      /* Modal scrolls with page */
       .bet-container {
         background: #fff;
         color: #000;
@@ -168,15 +166,13 @@
         width: 100%;
         max-width: 600px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
+        position: relative;
+        margin: 20px auto;
         display: none;
         z-index: 5000;
       }
 
+      /* Alert fixed on top */
       .alert-bar {
         background: red;
         color: white;
@@ -185,13 +181,13 @@
         font-size: 14px;
         font-weight: bold;
         display: none;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        border-radius: 8px 8px 0 0;
+        border-radius: 0;
         animation: slideDown 0.4s ease;
-        z-index: 1000;
+        z-index: 10000;
       }
 
       @keyframes slideDown {
@@ -403,47 +399,41 @@
         .bet-container {
           max-width: 100%;
           border-radius: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
         }
       }
     </style>
   </head>
   <body>
     <div class="container-fluid">
-      <!-- IN PLAY Title -->
       <div class="inplay-title">IN PLAY</div>
-
-      <!-- Cricket Header -->
       <div class="sport-header">
         <span class="icon">🏏</span> Cricket
-        <span class="count">6</span>
+        <span class="count">3</span>
       </div>
 
       <!-- Match 1 -->
       <div class="match-card">
         <div class="match-header">
           <div class="match-teams">
-            <a href="matchinfo.html"><span>India</span></a>
-            <a href="matchinfo.html"><span>Pakistan</span></a>
+            <span>India</span>
+            <span>Pakistan</span>
           </div>
           <div class="tv-icon">📺</div>
         </div>
         <div class="odds-grid">
-          <div class="split-box" data-odds="1.26" data-side="back">
+          <div class="split-box" data-odds="1.26">
             <div class="left">1.25</div>
             <div class="right">1.26</div>
-            <div class="circle">0</div>
-          </div>
-          <div class="split-box" data-odds="1" data-side="lay">
-            <div class="left">-</div>
-            <div class="right">1</div>
             <div class="circle">1</div>
           </div>
-          <div class="split-box" data-odds="5" data-side="back">
+          <div class="split-box" data-odds="5.00">
             <div class="left">4.8</div>
-            <div class="right">5</div>
+            <div class="right">5.00</div>
+            <div class="circle">2</div>
+          </div>
+          <div class="split-box" data-odds="5.00">
+            <div class="left">4.8</div>
+            <div class="right">5.00</div>
             <div class="circle">2</div>
           </div>
         </div>
@@ -453,25 +443,25 @@
       <div class="match-card">
         <div class="match-header">
           <div class="match-teams">
-            <span>Ireland</span>
+            <span>Australia</span>
             <span>England</span>
           </div>
           <div class="tv-icon">📺</div>
         </div>
         <div class="odds-grid">
-          <div class="split-box" data-odds="12" data-side="back">
-            <div class="left">11</div>
-            <div class="right">12</div>
-            <div class="circle">0</div>
+          <div class="split-box" data-odds="1.90">
+            <div class="left">1.89</div>
+            <div class="right">1.90</div>
+            <div class="circle">3</div>
           </div>
-          <div class="split-box" data-odds="1" data-side="lay">
-            <div class="left">-</div>
-            <div class="right">1</div>
-            <div class="circle">1</div>
+          <div class="split-box" data-odds="2.30">
+            <div class="left">2.25</div>
+            <div class="right">2.30</div>
+            <div class="circle">4</div>
           </div>
-          <div class="split-box" data-odds="1.1" data-side="back">
-            <div class="left">1.09</div>
-            <div class="right">1.1</div>
+          <div class="split-box" data-odds="5.00">
+            <div class="left">4.8</div>
+            <div class="right">5.00</div>
             <div class="circle">2</div>
           </div>
         </div>
@@ -481,34 +471,34 @@
       <div class="match-card">
         <div class="match-header">
           <div class="match-teams">
-            <span>Queensland Bulls</span>
-            <span>Western Australia</span>
+            <span>South Africa</span>
+            <span>New Zealand</span>
           </div>
           <div class="tv-icon">📺</div>
         </div>
         <div class="odds-grid">
-          <div class="split-box" data-odds="1.89" data-side="back">
-            <div class="left">1.88</div>
-            <div class="right">1.89</div>
-            <div class="circle">0</div>
+          <div class="split-box" data-odds="1.75">
+            <div class="left">1.74</div>
+            <div class="right">1.75</div>
+            <div class="circle">5</div>
           </div>
-          <div class="split-box" data-odds="1" data-side="back">
-            <div class="left">1</div>
-            <div class="right">-</div>
-            <div class="circle">1</div>
+          <div class="split-box" data-odds="2.80">
+            <div class="left">2.75</div>
+            <div class="right">2.80</div>
+            <div class="circle">6</div>
           </div>
-          <div class="split-box" data-odds="2.14" data-side="back">
-            <div class="left">2.12</div>
-            <div class="right">2.14</div>
+          <div class="split-box" data-odds="5.00">
+            <div class="left">4.8</div>
+            <div class="right">5.00</div>
             <div class="circle">2</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bet-container" id="betContainer">
-      <div class="alert-bar" id="alertBar"></div>
+    <div class="alert-bar" id="alertBar"></div>
 
+    <div class="bet-container" id="betContainer">
       <div class="profit-max">
         <span class="profit">Profit : ₹0.00</span>
         <span style="color: black">Max Market: ₹2,00,000</span>
@@ -558,19 +548,21 @@
 
     <script>
       let odds = 1.75;
+      const betContainer = document.getElementById("betContainer");
+      const alertBar = document.getElementById("alertBar");
 
       function updateOdds() {
         document.getElementById("oddsValue").textContent = odds.toFixed(2);
       }
 
-      document.getElementById("plusOdds").addEventListener("click", () => {
+      document.getElementById("plusOdds").onclick = () => {
         odds += 0.01;
         updateOdds();
-      });
-      document.getElementById("minusOdds").addEventListener("click", () => {
+      };
+      document.getElementById("minusOdds").onclick = () => {
         if (odds > 1.01) odds -= 0.01;
         updateOdds();
-      });
+      };
 
       function addStake(amount) {
         let stakeInput = document.getElementById("stakeInput");
@@ -590,13 +582,13 @@
       function clearStake() {
         document.getElementById("stakeInput").value = 0;
       }
+
       function cancelBet() {
         odds = 1.75;
         updateOdds();
         clearStake();
-        showAlert("Bet cancelled!", () => {
-          document.getElementById("betContainer").style.display = "none";
-        });
+        showAlert("Bet cancelled!");
+        betContainer.style.display = "none";
       }
 
       function placeBet() {
@@ -606,17 +598,17 @@
           showAlert("Please enter stake amount!");
           return;
         }
-        if (confirmToggle) {
-          if (!confirm("Are you sure you want to place this bet?")) return;
-        }
+        if (
+          confirmToggle &&
+          !confirm("Are you sure you want to place this bet?")
+        )
+          return;
 
         const overlay = document.getElementById("overlay");
         const countdown = document.getElementById("countdownCircle");
         overlay.style.display = "flex";
-
         let seconds = 3;
         countdown.textContent = seconds;
-
         let interval = setInterval(() => {
           seconds--;
           if (seconds > 0) {
@@ -624,44 +616,40 @@
           } else {
             clearInterval(interval);
             overlay.style.display = "none";
-            showAlert(
-              `Bet placed successfully! Odds: ${odds.toFixed(
-                2
-              )} Stake: ₹${stake}`,
-              () => {
-                document.getElementById("betContainer").style.display = "none";
-                clearStake();
-                odds = 1.75;
-                updateOdds();
-              }
-            );
+            showAlert(`Bet placed! ₹${stake} @ ${odds.toFixed(2)}`);
+            betContainer.style.display = "none";
+            clearStake();
+            odds = 1.75;
+            updateOdds();
           }
         }, 1000);
       }
 
-      // Modified showAlert to accept callback when alert disappears
-      function showAlert(message, callback) {
-        let alertBar = document.getElementById("alertBar");
+      function showAlert(message) {
         alertBar.innerText = message;
         alertBar.style.display = "block";
-        alertBar.style.top = "-50px";
-
         setTimeout(() => {
           alertBar.style.display = "none";
-          if (callback) callback();
-        }, 3000); // alert visible for 3 seconds
+        }, 3000);
       }
 
-      // Open betting modal when any split-box is clicked
+      // ✅ Toggle modal open/close when clicking split-box
+      let lastSelectedBox = null;
       document.querySelectorAll(".split-box").forEach((box) => {
         box.addEventListener("click", () => {
-          const betContainer = document.getElementById("betContainer");
-          betContainer.style.display = "block";
-
-          // Set odds to clicked value
-          let value = parseFloat(box.dataset.odds);
-          odds = value;
+          if (
+            lastSelectedBox === box &&
+            betContainer.style.display === "block"
+          ) {
+            betContainer.style.display = "none";
+            lastSelectedBox = null;
+            return;
+          }
+          lastSelectedBox = box;
+          odds = parseFloat(box.dataset.odds);
           updateOdds();
+          betContainer.style.display = "block";
+          betContainer.scrollIntoView({ behavior: "smooth", block: "center" });
         });
       });
     </script>
