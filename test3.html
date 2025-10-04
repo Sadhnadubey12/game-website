@@ -3,383 +3,975 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Account - 11exch</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0e141a;
-        color: #fff;
-      }
-      .container {
-        padding: 15px;
-        max-width: 100%;
-      }
-
-      /* Top Navbar */
-      .top-navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #122033;
-        padding: 10px 15px;
-      }
-      .top-navbar .logo {
-        font-size: 18px;
-        font-weight: bold;
-        color: #e800a5;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .top-navbar .center {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .top-navbar .center span {
-        font-weight: bold;
-        font-size: 14px;
-        background: #122033;
-        padding: 4px 8px;
-        border-radius: 6px;
-      }
-      .top-navbar .deposit-btn {
-        background: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-size: 14px;
-        cursor: pointer;
-      }
-      .top-navbar .close-btn {
-        font-size: 18px;
-        cursor: pointer;
-      }
-
-      /* User Header */
-      .user-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #122033;
-        padding: 12px;
-        border-radius: 10px;
-        margin: 15px 0;
-      }
-      .user-header .left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .user-header .left i {
-        font-size: 20px;
-        background: #122033;
-        padding: 10px;
-        border-radius: 50%;
-      }
-      .user-header .left span {
-        font-size: 15px;
-        font-weight: bold;
-      }
-      .user-header .right i {
-        font-size: 18px;
-        cursor: pointer;
-      }
-
-      /* Wallet Box */
-      .wallet-card {
-        background: linear-gradient(to right, #530c67, #590c4a);
-        border-radius: 15px;
-        padding: 15px;
-        color: #fff;
-        position: relative;
-        margin: 15px 0;
-      }
-
-      .wallet-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: relative;
-      }
-
-      .wallet-balance {
-        font-size: 22px;
-        font-weight: bold;
-      }
-
-      .wallet-balance span {
-        display: block;
-        font-size: 13px;
-        font-weight: normal;
-        margin-top: 3px;
-      }
-
-      .redeem-btn {
-        background: #22c55e;
-        border: none;
-        color: #fff;
-        padding: 6px 12px;
-        font-size: 13px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-
-      .wallet-icon {
-        font-size: 28px;
-        position: absolute;
-        right: 10px;
-        top: -5px;
-      }
-
-      .wallet-details {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 12px;
-      }
-
-      .wallet-box {
-        flex: 1;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 10px;
-        padding: 8px;
-        margin: 0 5px;
-      }
-
-      .wallet-box span {
-        font-size: 12px;
-        opacity: 0.9;
-      }
-
-      .wallet-box p {
-        font-size: 14px;
-        margin: 4px 0 0;
-        font-weight: bold;
-      }
-
-      /* Action Buttons */
-      .action-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
-      }
-      .action-buttons button {
-        flex: 1;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        margin: 0 5px;
-        font-size: 14px;
-      }
-      .withdraw-btn {
-        background: #122033;
-        color: #fff;
-      }
-      .deposit-big-btn {
-        background: #28a745;
-        color: #fff;
-      }
-
-      /* Menu List */
-      .menu-list {
-        list-style: none;
-        padding: 0;
-        margin-top: 20px;
-      }
-      .menu-list li {
-        background: #122033;
-        padding: 14px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-        font-size: 14px;
-      }
-      .menu-list li i:first-child {
-        margin-right: 10px;
-      }
-      .menu-list li:hover {
-        background: #122033;
-      }
-
-      /* App Links */
-      .app-links {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-        gap: 10px;
-      }
-      .app-box {
-        flex: 1;
-        background: #122033;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-        cursor: pointer;
-        font-size: 13px;
-      }
-
-      /* Logout */
-      .logout-btn {
-        background: linear-gradient(90deg, #e800a5, #8a2be2);
-        border: none;
-        color: #fff;
-        width: 100%;
-        padding: 14px;
-        margin-top: 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .wallet-stats {
-          flex-direction: column;
-        }
-        .wallet-stats div {
-          margin: 5px 0;
-        }
-        .action-buttons {
-          flex-direction: column;
-        }
-        .action-buttons button {
-          margin: 5px 0;
-        }
-        .app-links {
-          flex-direction: column;
-        }
-      }
-    </style>
+    <title>Document</title>
   </head>
   <body>
-    <!-- Top Navbar -->
-    <div class="top-navbar">
-      <div class="logo"><i class="fa fa-dice"></i> 11exch</div>
-      <div class="center">
-        <span>₹ 0</span>
-        <button class="deposit-btn">Deposit</button>
+    <!-- IN PLAY Section -->
+
+    <style>
+      /* IN PLAY Title */
+      .inplay-title {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 15px;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+
+      .inplay-title::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background-color: red;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      /* Cricket Header */
+      .sport-header {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(90deg, #6a206d, #321b58);
+        padding: 10px 15px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .sport-header span.icon {
+        margin-right: 8px;
+      }
+
+      .sport-header span.count {
+        background: #fff;
+        color: #000;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 13px;
+        margin-left: 8px;
+      }
+
+      .match-card {
+        background: #101a20;
+        padding: 15px;
+        border-bottom: 1px solid #1d2a30;
+        margin-bottom: 8px;
+        border-radius: 8px;
+      }
+
+      .match-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .match-teams {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .match-teams span:first-child {
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .match-teams span:last-child {
+        color: #ccc;
+        font-size: 13px;
+      }
+
+      .tv-icon {
+        color: gold;
+        font-size: 16px;
+      }
+
+      .odds-grid {
+        display: flex;
+        gap: 10px;
+      }
+
+      .split-box {
+        background: transparent;
+        display: flex;
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 48px;
+        flex: 1;
+        min-width: 100px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .split-box:hover {
+        transform: translateY(-2px);
+      }
+
+      .split-box div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .left {
+        background: #2a4eb5;
+        color: #fff;
+      }
+
+      .right {
+        background: #e085a6;
+        color: #fff;
+      }
+
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        color: black;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 2px solid #0f1a1f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        z-index: 2;
+      }
+
+      /* Betting Panel */
+      .betting-panel {
+        display: none;
+        background: linear-gradient(to bottom, #ffffff, #f8fafc);
+        color: #000000;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+
+      .betting-panel h3 {
+        margin: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #1e293b;
+      }
+
+      .form-row {
+        margin-bottom: 15px;
+      }
+
+      .form-row label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #475569;
+      }
+
+      .form-row input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        box-sizing: border-box;
+        background-color: #f1f5f9;
+      }
+
+      .quick-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .quick-buttons button {
+        flex: 1 1 30%;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #ffffff;
+        transition: all 0.2s;
+      }
+
+      .quick-buttons button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .btn-purple {
+        background: linear-gradient(to bottom, #b300b3, #990099);
+      }
+
+      .btn-blue {
+        background: linear-gradient(to bottom, #0099cc, #0077aa);
+      }
+
+      .btn-gray {
+        background: linear-gradient(to bottom, #777777, #555555);
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-cancel {
+        background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+        color: #475569;
+        border: 1px solid #cbd5e1;
+      }
+
+      .btn-place {
+        background: linear-gradient(to bottom, #32d67c, #28a745);
+        color: #ffffff;
+      }
+
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #475569;
+        justify-content: flex-end;
+      }
+
+      .toggle-row input[type="checkbox"] {
+        margin-left: 10px;
+        transform: scale(1.2);
+      }
+
+      /* Typography and special text coloring */
+      .liability {
+        background-color: #f8d0cd;
+        color: #c0392b;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+        font-size: 14px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .max-market {
+        font-size: 14px;
+        color: #333333;
+        text-align: right;
+        margin-top: -40px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      /* Loading animation */
+      .loader-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader {
+        width: 60px;
+        height: 60px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #32d67c;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loader-content {
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        color: #1e293b;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .loader-content p {
+        margin-top: 15px;
+        font-weight: 500;
+      }
+
+      /* Alert box */
+      .alert-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .alert-box {
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        color: #1e293b;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 350px;
+      }
+
+      .alert-icon {
+        font-size: 40px;
+        color: #e53e3e;
+        margin-bottom: 15px;
+      }
+
+      .alert-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #c53030;
+      }
+
+      .alert-message {
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .alert-button {
+        padding: 10px 20px;
+        background: linear-gradient(to bottom, #e53e3e, #c53030);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.2s;
+      }
+
+      .alert-button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Overlay */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+    </style>
+
+    <div class="container-fluid">
+      <!-- IN PLAY Title -->
+      <div class="inplay-title">IN PLAY</div>
+
+      <!-- Cricket Header -->
+      <div class="sport-header">
+        <span class="icon">🏏</span> Cricket
+        <span class="count">6</span>
       </div>
-      <div class="close-btn"><i class="fa fa-times"></i></div>
+
+      <!-- Match 1 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <a href="matchinfo.html"><span>India</span></a>
+            <a href="matchinfo.html"><span>Pakistan</span></a>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="1.26" data-side="back">
+            <div class="left">1.25</div>
+            <div class="right">1.26</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="lay">
+            <div class="left">-</div>
+            <div class="right">1</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="5" data-side="back">
+            <div class="left">4.8</div>
+            <div class="right">5</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match 2 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <span>Ireland</span>
+            <span>England</span>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="12" data-side="back">
+            <div class="left">11</div>
+            <div class="right">12</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="lay">
+            <div class="left">-</div>
+            <div class="right">1</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="1.1" data-side="back">
+            <div class="left">1.09</div>
+            <div class="right">1.1</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match 3 -->
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-teams">
+            <span>Queensland Bulls</span>
+            <span>Western Australia</span>
+          </div>
+          <div class="tv-icon">📺</div>
+        </div>
+        <div class="odds-grid">
+          <div class="split-box" data-odds="1.89" data-side="back">
+            <div class="left">1.88</div>
+            <div class="right">1.89</div>
+            <div class="circle">0</div>
+          </div>
+          <div class="split-box" data-odds="1" data-side="back">
+            <div class="left">1</div>
+            <div class="right">-</div>
+            <div class="circle">1</div>
+          </div>
+          <div class="split-box" data-odds="2.14" data-side="back">
+            <div class="left">2.12</div>
+            <div class="right">2.14</div>
+            <div class="circle">2</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="container">
-      <!-- User Header -->
-      <div class="user-header">
-        <div class="left">
-          <i class="fa fa-user"></i>
-          <span>+91-8602263337</span>
-        </div>
-        <div class="right">
-          <i class="fa fa-bell"></i>
-        </div>
+    <style>
+      /* Betting Panel Design */
+      .betting-panel {
+        width: 480px;
+        background: #fdfefe;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        position: fixed;
+        right: 50%;
+        top: 50%;
+        transform: translate(50%, -50%);
+        z-index: 1001;
+        display: none;
+      }
+
+      .header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .liability {
+        color: #2d6d36;
+        font-weight: 800;
+      }
+
+      .max-market {
+        color: #5b6166;
+        font-size: 13px;
+      }
+
+      .betting-panel h3 {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 10px 0 16px;
+        color: #0a1a1d;
+      }
+
+      .form-row {
+        margin-bottom: 14px;
+      }
+
+      .form-row label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #6b7276;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .form-row input {
+        width: 100%;
+        height: 48px;
+        border-radius: 8px;
+        border: 1px solid #d6dfe6;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 800;
+        background: #fbfdfe;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      /* Quick buttons */
+      .quick-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 18px 0;
+      }
+
+      .quick-buttons button {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        color: #fff;
+        font-weight: 800;
+        cursor: pointer;
+        font-size: 14px;
+        transition: transform 0.12s;
+      }
+
+      .quick-buttons button:active {
+        transform: translateY(2px);
+      }
+
+      .btn-purple {
+        background: linear-gradient(90deg, #ff59b8, #7b2cbf);
+      }
+      .btn-blue {
+        background: linear-gradient(90deg, #48c6ef, #0477b1);
+      }
+      .btn-gray {
+        background: linear-gradient(90deg, #ff5dbb, #9b30ff);
+      }
+
+      /* Actions */
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .btn {
+        flex: 1;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .btn-cancel {
+        background: #fff;
+        border: 2px solid #28a745;
+        color: #28a745;
+        box-shadow: 0 6px 18px rgba(50, 200, 120, 0.08);
+      }
+
+      .btn-place {
+        background: linear-gradient(90deg, #31c97a, #28a745);
+        color: #fff;
+        box-shadow: 0 8px 30px rgba(43, 175, 106, 0.2);
+      }
+
+      /* Confirm Toggle */
+      .toggle-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 14px;
+        font-weight: 700;
+        color: #0b1b1d;
+      }
+
+      .toggle {
+        width: 64px;
+        height: 34px;
+        border-radius: 999px;
+        padding: 3px;
+        display: inline-block;
+        position: relative;
+        background: #eef2f3;
+        border: 2px solid #c9d6ca;
+        cursor: pointer;
+      }
+
+      .toggle input {
+        display: none;
+      }
+
+      .toggle .knob {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #f3f5f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 11px;
+        color: #0b1b1d;
+        border: 2px solid #4c6b5d;
+        transition: all 0.26s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+
+      .toggle input:checked ~ .knob {
+        transform: translateX(30px);
+        border-color: rgba(46, 165, 113, 0.95);
+        background: linear-gradient(180deg, #2bbf77, #079c56);
+        color: #fff;
+      }
+
+      /* Overlay */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+      }
+
+      /* Loader */
+      .loader-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1100;
+      }
+
+      .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #28a745;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loader-content p {
+        margin-top: 10px;
+        font-weight: 600;
+        color: #0b1b1d;
+      }
+
+      /* Alert */
+      .alert-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1200;
+      }
+
+      .alert-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 320px;
+      }
+
+      .alert-title {
+        font-weight: 800;
+        font-size: 16px;
+        margin: 8px 0;
+      }
+
+      .alert-message {
+        font-size: 14px;
+        color: #444;
+        margin-bottom: 14px;
+      }
+
+      .alert-button {
+        background: linear-gradient(90deg, #31c97a, #28a745);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    </style>
+
+    <!-- Betting Panel -->
+    <div id="bettingPanel" class="betting-panel">
+      <div class="header-info">
+        <div class="liability">Liability : ₹0.00</div>
+        <div class="max-market">Max Market: ₹ 10,00,000</div>
       </div>
 
-      <!-- Wallet Box -->
-      <div class="wallet-card">
-        <div class="wallet-header">
-          <div class="wallet-balance">
-            ₹0
-            <span>Main Wallet</span>
-          </div>
-          <button class="redeem-btn">Redeem</button>
-          <div class="wallet-icon">💼</div>
-        </div>
+      <h3>Place Bet</h3>
 
-        <div class="wallet-details">
-          <div class="wallet-box">
-            <span>Free Money <i>ⓘ</i></span>
-            <p>₹0</p>
-          </div>
-          <div class="wallet-box">
-            <span>Exposure</span>
-            <p>₹0</p>
-          </div>
-          <div class="wallet-box">
-            <span>Life Time Bonus</span>
-            <p>₹0</p>
-          </div>
-        </div>
+      <div class="form-row">
+        <label>ODDS</label>
+        <input type="number" id="oddsInput" readonly />
       </div>
 
-      <!-- Withdraw / Deposit -->
-      <div class="action-buttons">
-        <button class="withdraw-btn">
-          <i class="fa fa-wallet"></i> Withdraw
+      <div class="form-row">
+        <label>STAKES</label>
+        <input type="number" id="stakeInput" placeholder="0" />
+      </div>
+
+      <div class="quick-buttons">
+        <button class="btn-purple" onclick="adjustStake(1000)">+1000</button>
+        <button class="btn-purple" onclick="adjustStake(10000)">+10000</button>
+        <button class="btn-purple" onclick="adjustStake(20000)">+20000</button>
+        <button class="btn-blue" onclick="setStake('min')">MIN</button>
+        <button class="btn-blue" onclick="setStake('max')">MAX</button>
+        <button class="btn-gray" onclick="editStake()">EDIT</button>
+        <button class="btn-gray" onclick="clearStake()">CLEAR</button>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-cancel" onclick="closeBetPanel()">
+          Cancel Bet
         </button>
-        <button class="deposit-big-btn">
-          <i class="fa fa-money-bill"></i> Deposit
-        </button>
+        <button class="btn btn-place" onclick="placeBet()">Place Bet</button>
       </div>
 
-      <!-- Menu List -->
-      <ul class="menu-list">
-        <li>
-          <span
-            ><i class="fa fa-file-invoice"></i> Deposit Withdraw Report</span
-          >
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-handshake"></i> Refer and Earn</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-dice"></i> Open Bets</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-coins"></i> Bonus</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-chart-line"></i> Betting Profit Loss</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-file-alt"></i> Account Statement</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-          <span><i class="fa fa-cog"></i> Settings</span>
-          <i class="fa fa-angle-right"></i>
-        </li>
-      </ul>
-
-      <!-- App Download Links -->
-      <div class="app-links">
-        <div class="app-box">
-          <i class="fa fa-apple"></i><br />
-          iOS App
-        </div>
-        <div class="app-box">
-          <i class="fa fa-android"></i><br />
-          Android App
-        </div>
+      <div class="toggle-row">
+        Confirm bet before placing
+        <label class="toggle">
+          <input type="checkbox" id="confirmToggle" />
+          <span class="knob" id="toggleKnob">OFF</span>
+        </label>
       </div>
-
-      <!-- Logout -->
-      <button class="logout-btn">Log Out</button>
     </div>
 
-    <!-- Script for Close Button -->
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="closeBetPanel()"></div>
+
+    <!-- Loader -->
+    <div id="loaderContainer" class="loader-container">
+      <div class="loader-content">
+        <div class="loader"></div>
+        <p>Processing your bet...</p>
+      </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alertContainer" class="alert-container">
+      <div class="alert-box">
+        <div class="alert-title">Bet Not Allowed</div>
+        <div class="alert-message">
+          Unmatched bets are not allowed. Please try again with different odds.
+        </div>
+        <button class="alert-button" onclick="closeAlert()">OK</button>
+      </div>
+    </div>
+
     <script>
-      document.querySelector(".close-btn").addEventListener("click", () => {
-        document.querySelector(".container").style.display = "none";
-        document.querySelector(".top-navbar").style.display = "none";
+      let currentOdds = 0;
+      let currentSide = "";
+
+      document.querySelectorAll(".split-box").forEach((box) => {
+        box.addEventListener("click", function () {
+          const odds = this.getAttribute("data-odds");
+          const side = this.getAttribute("data-side");
+          openBetPanel(odds, side);
+        });
       });
+
+      function openBetPanel(odds, side) {
+        document.getElementById("bettingPanel").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        currentOdds = odds;
+        currentSide = side;
+        document.getElementById("oddsInput").value = odds;
+        document.getElementById("stakeInput").value = "";
+        updateLiability();
+      }
+
+      function closeBetPanel() {
+        document.getElementById("bettingPanel").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+      }
+
+      function adjustStake(amount) {
+        const input = document.getElementById("stakeInput");
+        const current = parseInt(input.value) || 0;
+        input.value = current + amount;
+        updateLiability();
+      }
+
+      function clearStake() {
+        document.getElementById("stakeInput").value = "";
+        updateLiability();
+      }
+
+      function editStake() {
+        const val = prompt("Enter custom stake amount:");
+        if (val !== null && !isNaN(val) && val >= 0) {
+          document.getElementById("stakeInput").value = val;
+          updateLiability();
+        }
+      }
+
+      function setStake(type) {
+        const input = document.getElementById("stakeInput");
+        if (type === "min") {
+          input.value = 100;
+        } else if (type === "max") {
+          input.value = 1000000;
+        }
+        updateLiability();
+      }
+
+      function updateLiability() {
+        const stake =
+          parseFloat(document.getElementById("stakeInput").value) || 0;
+        const liability = stake * (currentOdds - 1);
+        document.querySelector(
+          ".liability"
+        ).textContent = `Liability : ₹${liability.toFixed(2)}`;
+      }
+
+      function showLoader() {
+        document.getElementById("loaderContainer").style.display = "flex";
+      }
+
+      function hideLoader() {
+        document.getElementById("loaderContainer").style.display = "none";
+      }
+
+      function showAlert() {
+        document.getElementById("alertContainer").style.display = "flex";
+      }
+
+      function closeAlert() {
+        document.getElementById("alertContainer").style.display = "none";
+      }
+
+      function placeBet() {
+        const stake =
+          parseFloat(document.getElementById("stakeInput").value) || 0;
+        const confirmToggle = document.getElementById("confirmToggle").checked;
+
+        if (stake <= 0) {
+          alert("Please enter a valid stake amount");
+          return;
+        }
+
+        if (confirmToggle) {
+          const confirmed = confirm(
+            `Place bet of ₹${stake} at odds ${currentOdds}?`
+          );
+          if (!confirmed) return;
+        }
+
+        showLoader();
+        setTimeout(() => {
+          hideLoader();
+          showAlert();
+        }, 2000);
+      }
+
+      // Toggle ON/OFF text
+      document
+        .getElementById("confirmToggle")
+        .addEventListener("change", function () {
+          document.getElementById("toggleKnob").textContent = this.checked
+            ? "ON"
+            : "OFF";
+        });
     </script>
   </body>
 </html>
