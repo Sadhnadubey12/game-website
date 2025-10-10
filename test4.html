@@ -12,175 +12,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
-     <!-- navbar style start -->
-    <style>
-      /* Navbar */
-      .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        background-color: #0c161b;
-        border-bottom: 1px solid #1f2a30;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        color: #e6007a;
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      .logo img {
-        height: 30px;
-        margin-right: 10px;
-      }
-
-     .auth-buttons button {
-        margin-left: 10px;
-        padding: 4px 6px;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s ease;
-      }
-
-      .login {
-        background: linear-gradient(to right, #b833dc, #ff00cc);
-        color: white;
-      }
-
-      .register {
-        background: linear-gradient(to right, #00ff85, #00b245);
-        color: white;
-      }
-
-      /* Modal */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-      }
-
-      .modal-content {
-        background: linear-gradient(to bottom, #1b2235, #131e2e);
-        margin: 80px auto;
-        padding: 20px;
-        border-radius: 15px;
-        width: 90%;
-        max-width: 400px;
-        color: white;
-        position: relative;
-      }
-
-      .modal-content h2 {
-        color: #6c63ff;
-        margin-bottom: 10px;
-      }
-
-      .modal-content h3 {
-        margin: 0;
-      }
-
-      .modal-content .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        color: white;
-        cursor: pointer;
-      }
-
-      .tab-toggle {
-        display: flex;
-        margin: 15px 0;
-        border-radius: 10px;
-        overflow: hidden;
-        background-color: #1e2a3b;
-      }
-
-      .tab-toggle button {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        background-color: #1e2a3b;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-      }
-
-      .tab-toggle .active {
-        background-color: #00b86b;
-      }
-
-      .modal-content input {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border-radius: 8px;
-        border: none;
-        background-color: #0e1c2c;
-        color: white;
-      }
-
-      .modal-content input::placeholder {
-        color: #888;
-      }
-
-      .login-btn,
-      .register-btn {
-        background: linear-gradient(to right, #00ff85, #00b245);
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 10px;
-        font-weight: bold;
-        margin-top: 15px;
-        cursor: pointer;
-      }
-
-      .alt-login {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-
-      .alt-login button {
-        flex: 1;
-        padding: 10px;
-        margin: 5px;
-        background-color: #0e1c2c;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .alt-login button img {
-        height: 20px;
-        margin-right: 8px;
-      }
-
-      .forgot-password {
-        text-align: right;
-        font-size: 12px;
-        color: #bbb;
-        margin-top: -10px;
-      }
-    </style>
-    <!-- navbar style end -->
     <style>
       body {
         background: #0b0c10;
@@ -1193,6 +1024,30 @@
 
 <!--  match info section start -->
 
+<style>
+  /* Make wrap full width */
+  .wrap {
+    width: 100%;
+    max-width: 100%; /* prevent any container max-width restriction */
+    margin: 0; /* remove default margin */
+    padding: 0; /* optional, adjust if needed */
+  }
+
+  /* Make content take full width inside wrap */
+  .wrap .content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px; /* optional padding for some spacing */
+    box-sizing: border-box; /* ensures padding doesn't exceed width */
+  }
+
+  /* Optional: remove any body margin */
+  body {
+    margin: 0;
+  }
+</style>
+
+
 <div class="wrap">
       <div class="content">
         <!-- top pill -->
@@ -1490,258 +1345,17 @@
 
         <!-- MARKET 1 -->
     
-<div class="market" id="market-1">
-  <div class="market-head">
-    <div class="left">
-      <div>Match Odds</div>
-      <div class="cashout-pill">Cashout</div>
-    </div>
-    <div class="right">
-      <div class="head-labels">
-        <div style="background: rgba(255, 255, 255, 0.06); padding: 6px 8px; border-radius: 8px; font-weight: 700;">⏱ 0s</div>
-      </div>
-      <div style="font-weight: 800; letter-spacing: 0.6px">BACK &nbsp; LAY</div>
-    </div>
-  </div>
 
-  <div class="rows">
-    <div class="row">
-      <div class="team">New Zealand W</div>
-      <div class="split">
-        <div class="half back" data-team="New Zealand W" data-side="BACK" data-odds="1.23">
-          <div class="odd">1.23</div>
-          <div class="amt">2623.35</div>
-        </div>
-        <div class="half lay" data-team="New Zealand W" data-side="LAY" data-odds="1.24">
-          <div class="odd">1.24</div>
-          <div class="amt">2579.63</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="team">Bangladesh W</div>
-      <div class="split">
-        <div class="half back" data-team="Bangladesh W" data-side="BACK" data-odds="5.1">
-          <div class="odd">5.1</div>
-          <div class="amt">815.79</div>
-        </div>
-        <div class="half lay" data-team="Bangladesh W" data-side="LAY" data-odds="5.3">
-          <div class="odd">5.3</div>
-          <div class="amt">112.41</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Bet container template (hidden) -->
-<div class="bet-container" id="betContainerTemplate" style="display:none;">
-  <div class="profit-max">
-    <span class="profit">Profit : ₹0.00</span>
-    <span style="color: black">Max Market: ₹2,00,000</span>
-  </div>
-  <div class="row">
-    <div class="odds-box">
-      <button class="minusOdds">-</button>
-      <span class="odds-value">1.75</span>
-      <button class="plusOdds">+</button>
-    </div>
-    <div class="stake-input">
-      <input type="number" class="stakeInput" value="0" min="0"/>
-    </div>
-  </div>
-  <div class="btn-group">
-    <button class="btn btn-purple addStake" data-amount="1000">+1000</button>
-    <button class="btn btn-purple addStake" data-amount="10000">+10000</button>
-    <button class="btn btn-purple addStake" data-amount="20000">+20000</button>
-  </div>
-  <div class="btn-group">
-    <button class="btn btn-blue setMin">MIN</button>
-    <button class="btn btn-green setMax">MAX</button>
-    <button class="btn btn-pink editStake">EDIT STAKES</button>
-    <button class="btn btn-purple clearStake">CLEAR</button>
-  </div>
-  <div class="action-buttons">
-    <button class="cancel-btn">Cancel Bet</button>
-    <button class="place-btn">Place Bet</button>
-  </div>
-</div>
 
-<script>
-let currentBetContainer = null;
-
-// Open bet container under clicked odds
-document.querySelectorAll(".half.back, .half.lay").forEach(el => {
-  el.addEventListener("click", () => {
-    // Remove previous container if exists
-    if(currentBetContainer) currentBetContainer.remove();
-
-    // Clone template
-    const template = document.getElementById("betContainerTemplate");
-    const betContainer = template.cloneNode(true);
-    betContainer.id = "";
-    betContainer.style.display = "block";
-
-    // Insert after clicked row
-    const row = el.closest(".row");
-    row.after(betContainer);
-    currentBetContainer = betContainer;
-
-    // Set odds
-    const oddsValueElem = betContainer.querySelector(".odds-value");
-    let odds = parseFloat(el.dataset.odds);
-    oddsValueElem.textContent = odds.toFixed(2);
-
-    // Handle + / -
-    betContainer.querySelector(".plusOdds").onclick = () => { odds+=0.01; oddsValueElem.textContent = odds.toFixed(2); };
-    betContainer.querySelector(".minusOdds").onclick = () => { if(odds>1.01) odds-=0.01; oddsValueElem.textContent = odds.toFixed(2); };
-
-    // Handle stake buttons
-    const stakeInput = betContainer.querySelector(".stakeInput");
-    betContainer.querySelectorAll(".addStake").forEach(btn => {
-      btn.onclick = () => { stakeInput.value = parseInt(stakeInput.value)+parseInt(btn.dataset.amount); };
-    });
-    betContainer.querySelector(".setMin").onclick = () => { stakeInput.value = 100; };
-    betContainer.querySelector(".setMax").onclick = () => { stakeInput.value = 200000; };
-    betContainer.querySelector(".editStake").onclick = () => {
-      let newStake = prompt("Enter custom stake amount:");
-      if(newStake && !isNaN(newStake)) stakeInput.value = newStake;
-    };
-    betContainer.querySelector(".clearStake").onclick = () => { stakeInput.value = 0; };
-
-    // Cancel button
-    betContainer.querySelector(".cancel-btn").onclick = () => { betContainer.remove(); currentBetContainer=null; };
-    
-    // Place Bet
-    betContainer.querySelector(".place-btn").onclick = () => {
-      const stake = stakeInput.value;
-      if(stake <=0){ alert("Enter stake!"); return; }
-      alert(`Bet placed ₹${stake} @ ${odds.toFixed(2)}`);
-      betContainer.remove(); currentBetContainer=null;
-    };
-  });
-});
-</script>
-
-        <!-- MARKET 2 - Toss -->
-        <div class="market" id="market-2">
-          <div class="market-head">
-            <div class="left">To Win The Toss</div>
-            <div class="right">
-              <div class="head-labels">
-                <div
-                  style="
-                    background: rgba(255, 255, 255, 0.06);
-                    padding: 6px 8px;
-                    border-radius: 8px;
-                    font-weight: 700;
-                  "
-                >
-                  ⏱ 0s
-                </div>
-              </div>
-              <div style="font-weight: 800; letter-spacing: 0.6px">
-                BACK &nbsp; LAY
-              </div>
-            </div>
-          </div>
-
-          <div class="rows">
-            <div class="row">
-              <div class="team">Pakistan</div>
-
-              <div class="split">
-                <div
-                  class="half back"
-                  data-team="Pakistan (Toss)"
-                  data-side="BACK"
-                  data-odds="1.98"
-                  tabindex="0"
-                >
-                  <div class="odd">1.98</div>
-                  <div class="amt">—</div>
-                </div>
-                <div
-                  class="half empty"
-                  data-team="Pakistan (Toss)"
-                  data-side="LAY"
-                  data-odds="-"
-                  tabindex="0"
-                >
-                  <div class="odd">-</div>
-                  <div class="amt">—</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="team">Sri Lanka</div>
-
-              <div class="split">
-                <div
-                  class="half back"
-                  data-team="Sri Lanka (Toss)"
-                  data-side="BACK"
-                  data-odds="1.98"
-                  tabindex="0"
-                >
-                  <div class="odd">1.98</div>
-                  <div class="amt">—</div>
-                </div>
-                <div
-                  class="half empty"
-                  data-team="Sri Lanka (Toss)"
-                  data-side="LAY"
-                  data-odds="-"
-                  tabindex="0"
-                >
-                  <div class="odd">-</div>
-                  <div class="amt">—</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- end content -->
     </div>
     <!-- end wrap -->
 
     <!-- Betting slip drawer -->
-    <div class="bet-slip" id="betSlip" aria-hidden="true">
-      <h4 id="betHeading">Place Bet</h4>
-
-      <div class="field">
-        <div style="color: #bfe9e6">Selection</div>
-        <div id="sel" style="font-weight: 800">—</div>
-      </div>
-      <div class="field">
-        <div style="color: #bfe9e6">Side</div>
-        <div id="side" style="font-weight: 800">—</div>
-      </div>
-      <div class="field">
-        <div style="color: #bfe9e6">Odds</div>
-        <div id="odds" style="font-weight: 800">—</div>
-      </div>
-
-      <div style="margin-top: 8px">
-        <label style="font-size: 13px; color: #9fb0b5; font-weight: 700"
-          >Stake</label
-        >
-        <input
-          id="stake"
-          type="number"
-          placeholder="Enter stake"
-          class="stake"
-        />
-      </div>
-
-      <div class="btn-row">
-        <button class="btn cancel" id="closeSlip">Cancel</button>
-        <button class="btn place" id="placeBetBtn">Place Bet</button>
-      </div>
-    </div>
+  
 
     <script>
       // Tabs (visual only)
@@ -1830,6 +1444,525 @@ document.querySelectorAll(".half.back, .half.lay").forEach(el => {
       });
     </script>
 <!-- match info section end  -->
+
+
+
+
+ <style>
+      body {
+        background-color: #0b171f;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Full width container */
+      .container {
+        width: 100%;
+        margin: 0;
+        background-color: #121926;
+        border-radius: 0; /* optional, you can keep rounded corners */
+        overflow: hidden;
+        box-shadow: none; /* optional, remove shadow for full width */
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #3c1a4a;
+        padding: 10px 15px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .header span {
+        flex: 1;
+      }
+
+      .header button {
+        background-color: #68e0cf;
+        border: none;
+        padding: 3px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid #222;
+      }
+
+      .row span {
+        flex: 1;
+        font-weight: 600;
+      }
+
+      .odds {
+        display: flex;
+        gap: 5px;
+      }
+
+      .odds button {
+        border: none;
+        border-radius: 5px;
+        width: 75px;
+        height: 40px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .back {
+        background-color: #355e9a;
+      }
+
+      .lay {
+        background-color: #a65668;
+      }
+
+      .bookmaker {
+        background-color: #3b1848;
+        color: #ccc;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .bet-slip {
+        display: none;
+        background-color: #1b2432;
+        padding: 15px;
+        border-radius: 0; /* remove rounded corners for full width */
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bet-slip p {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .profit {
+        background-color: #2ecc71;
+        color: #000;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .bet-inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        gap: 10px;
+      }
+
+      .bet-inputs div {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .bet-inputs input {
+        height: 35px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      .add-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .add-buttons button {
+        flex: 1;
+        margin: 0 5px;
+        background-color: #a020f0;
+        border: none;
+        color: #fff;
+        padding: 8px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .bottom-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .btn-cancel {
+        background-color: #444;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        flex: 1;
+        margin-right: 5px;
+      }
+
+      .btn-login {
+        background-color: #2ecc71;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        flex: 1;
+        margin-left: 5px;
+      }
+
+      .confirm {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #aaa;
+      }
+
+      .toggle {
+        width: 40px;
+        height: 20px;
+        background-color: #444;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .circle {
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: 0.3s;
+      }
+
+      .toggle.active {
+        background-color: #2ecc71;
+      }
+
+      .toggle.active .circle {
+        left: 22px;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          width: 100%;
+        }
+      }
+    </style>
+  
+    <div class="container-fluid">
+      <!-- All your content remains the same -->
+      <div class="header">
+        <span>Match Odds</span>
+        <button>Cashout</button>
+        <span style="text-align: right">BACK | LAY</span>
+      </div>
+
+     <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 15px; border-bottom:1px solid #222; background:#1b2432;">
+  <span style="color:#fff; font-weight:bold;">New Zealand W</span>
+  <div style="display:flex; gap:5px;">
+    <button style="background:#355e9a; color:#fff; border:none; border-radius:5px; width:75px; height:40px; cursor:pointer; font-weight:bold;" onclick="openSlip('New Zealand W', 1.23)">
+      1.23<br><small style="font-size:12px; color:#ccc;">2623.35</small>
+    </button>
+    <button style="background:#a65668; color:#fff; border:none; border-radius:5px; width:75px; height:40px; cursor:pointer; font-weight:bold;" onclick="openSlip('New Zealand W', 1.24)">
+      1.24<br><small style="font-size:12px; color:#ccc;">2579.63</small>
+    </button>
+  </div>
+</div>
+
+
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('Bangladesh W', 5.1)">
+            5.1<br /><small>815.79</small>
+          </button>
+          <button class="lay" onclick="openSlip('Bangladesh W', 5.3)">
+            5.3<br /><small>112.41</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="bookmaker">
+        <span>BOOKMAKER</span>
+        <span>BACK | LAY</span>
+      </div>
+
+      <div class="row">
+        <span>New Zealand W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="bookmaker">
+        <span> BM 1 TO 10 OVER</span>
+        <span>BACK | LAY</span>
+      </div>
+
+      <div class="row">
+        <span>New Zealand W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="header">
+        <span>1st innings - Bates, Suzie to score 50</span>
+        <span style="text-align: right">BACK | LAY</span>
+      </div>
+
+      <div class="row">
+        <span>Yes</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 1.23)">
+            1.23<br /><small>2623.35</small>
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 1.24)">
+            1.24<br /><small>2579.63</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>No</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('Bangladesh W', 5.1)">
+            5.1<br /><small>815.79</small>
+          </button>
+          <button class="lay" onclick="openSlip('Bangladesh W', 5.3)">
+            5.3<br /><small>112.41</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="header">
+        <span> 1st innings over 2 - New Zealand odd/even</span>
+        <span style="text-align: right">BACK | LAY</span>
+      </div>
+
+      <div class="row">
+        <span>Odd</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 1.23)">
+            1.23<br /><small>2623.35</small>
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 1.24)">
+            1.24<br /><small>2579.63</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>Even</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('Bangladesh W', 5.1)">
+            5.1<br /><small>815.79</small>
+          </button>
+          <button class="lay" onclick="openSlip('Bangladesh W', 5.3)">
+            5.3<br /><small>112.41</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="bookmaker">
+        <span> BM 1 TO 10 OVER</span>
+        <span>BACK | LAY</span>
+      </div>
+
+      <div class="row">
+        <span>New Zealand W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <span>Bangladesh W</span>
+        <div class="odds">
+          <button class="back" onclick="openSlip('New Zealand W', 24)">
+            24
+          </button>
+          <button class="lay" onclick="openSlip('New Zealand W', 27)">
+            27
+          </button>
+        </div>
+      </div>
+
+      <div id="betSlip" class="bet-slip">
+        <div><strong id="teamName"></strong></div>
+        <p>
+          Profit: <span class="profit">₹0.00</span>
+          <span style="float: right">Max Market: ₹x,xx,xxx</span>
+        </p>
+        <div class="bet-inputs">
+          <div>
+            <label>ODDS</label>
+            <input type="text" id="odds" readonly />
+          </div>
+          <div>
+            <label>STAKES</label>
+            <input type="number" id="stakes" value="0" />
+          </div>
+        </div>
+
+        <div class="add-buttons">
+          <button onclick="addStake(1000)">+1000</button>
+          <button onclick="addStake(10000)">+10000</button>
+          <button onclick="addStake(20000)">+20000</button>
+        </div>
+
+        <div class="bottom-buttons">
+          <button class="btn-cancel" onclick="closeSlip()">Cancel Bet</button>
+          <button class="btn-login">Login</button>
+        </div>
+
+        <div class="confirm">
+          <span>Confirm bet before placing</span>
+          <div class="toggle" onclick="toggleSwitch(this)">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openSlip(team, odds) {
+        document.getElementById("teamName").innerText = team;
+        document.getElementById("odds").value = odds;
+        document.getElementById("betSlip").style.display = "block";
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      function closeSlip() {
+        document.getElementById("betSlip").style.display = "none";
+      }
+
+      function addStake(amount) {
+        const stakeInput = document.getElementById("stakes");
+        stakeInput.value = parseInt(stakeInput.value) + amount;
+      }
+
+      function toggleSwitch(el) {
+        el.classList.toggle("active");
+      }
+    </script>
 
 
 

@@ -3,376 +3,2964 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Betting UI</title>
+    <title>Match Info & Odds</title>
+
+     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
+      /* Reset and base styles */
       body {
-        background: #0f1a1f;
-        font-family: Arial, sans-serif;
-        color: #fff;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 100vh;
+        background-color: #0b171f;
+        color: #fff;
+        font-family: Arial, sans-serif;
       }
 
-      .bet-container {
-        background: #fff;
-        color: #000;
-        padding: 15px;
-        border-radius: 8px;
+      /* Make wrap full width */
+      .wrap {
         width: 100%;
-        max-width: 600px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        position: relative;
-        margin-top: 20px;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
       }
 
-      .alert-bar {
-        background: red;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        font-size: 14px;
-        font-weight: bold;
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        border-radius: 8px 8px 0 0;
-        animation: slideDown 0.4s ease;
-        z-index: 1000;
+      /* Make content take full width inside wrap */
+      .wrap .content {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
       }
-      @keyframes slideDown {
-        from {
-          top: -50px;
-        }
-        to {
-          top: 0;
-        }
+
+      /* Top line with back arrow and pill */
+      .top-line {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+      }
+
+      .back-arrow {
+        margin-right: 10px;
+      }
+
+      .top-pill {
+        display: flex;
+        align-items: center;
+        background-color: #2a2f36;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background-color: #e53e3e;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      /* Title block */
+      .title-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+      }
+
+      .title-left .match {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .title-left .comp {
+        font-size: 14px;
+        color: #96a3ab;
+      }
+
+      .title-right {
+        color: #48bb78;
+        font-size: 14px;
+      }
+
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 16px;
+        margin: 16px 0;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab {
+        padding: 8px 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #96a3ab;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .tab.active {
+        color: #fff;
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #ff6fb0, #9b4bff);
+      }
+
+      /* Tab panes */
+      .tab-pane {
+        display: none;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+
+      /* Match Info styles */
+      .match-header {
+        text-align: center;
+        padding: 15px 0;
+      }
+
+      .match-header .status {
+        color: #96a3ab;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .match-header h2 {
+        margin: 10px 0;
+        font-size: 18px;
+      }
+
+      .match-info-content {
+        background-color: #182c46;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+
+      .match-box {
+        background-color: #1b2432;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 10px;
+      }
+
+      .match-box p {
+        margin: 0 0 8px 0;
+        color: #96a3ab;
+      }
+
+      .score {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+      }
+
+      .bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #182c46;
+        padding: 12px 15px;
+        border-radius: 8px;
+      }
+
+      .market-btns {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .market-btns .time {
+        color: #96a3ab;
+        font-size: 14px;
+      }
+
+      .bottom-bar button {
+        background-color: #68e0cf;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #000;
+      }
+
+      /* Match Odds styles */
+      .container {
+        width: 100%;
+        margin: 0;
+        background-color: #121926;
+        border-radius: 0;
+        overflow: hidden;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #3c1a4a;
+        padding: 10px 15px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .header span {
+        flex: 1;
+      }
+
+      .header button {
+        background-color: #68e0cf;
+        border: none;
+        padding: 3px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
       }
 
       .row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
-        gap: 10px;
+        padding: 10px 15px;
+        border-bottom: 1px solid #222;
       }
 
-      .odds-box {
-        display: flex;
-        align-items: center;
-        background: #f2f2f2;
-        border-radius: 8px;
-        padding: 5px 10px;
+      .row span {
         flex: 1;
-        justify-content: space-between;
+        font-weight: 600;
       }
-      .odds-box button {
-        background: #182227;
+
+      .odds {
+        display: flex;
+        gap: 5px;
+      }
+
+      .odds button {
+        border: none;
+        border-radius: 5px;
+        width: 75px;
+        height: 40px;
+        cursor: pointer;
         color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        cursor: pointer;
-        font-size: 18px;
-      }
-      .odds-value {
-        font-weight: bold;
-        font-size: 18px;
-      }
-
-      .stake-input {
-        flex: 1;
-      }
-      .stake-input input {
-        width: 90%;
-        padding: 8px;
-        font-size: 16px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        text-align: center;
-      }
-
-      .btn-group {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 12px;
-      }
-      .btn {
-        flex: 1;
-        padding: 10px;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
         font-size: 14px;
-        color: #fff;
-      }
-      .btn-purple {
-        background: #b600ff;
-      }
-      .btn-blue {
-        background: #2496ff;
-      }
-      .btn-green {
-        background: #28a745;
-      }
-      .btn-pink {
-        background: #d633ff;
+        line-height: 1.2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
       }
 
-      .action-buttons {
+      .back {
+        background-color: #355e9a;
+      }
+
+      .lay {
+        background-color: #a65668;
+      }
+
+      .bookmaker {
+        background-color: #3b1848;
+        color: #ccc;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 8px 15px;
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .bet-slip {
+        display: none;
+        background-color: #1b2432;
+        padding: 15px;
+        border-radius: 0;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bet-slip p {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .profit {
+        background-color: #2ecc71;
+        color: #000;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .bet-inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
         gap: 10px;
       }
-      .cancel-btn,
-      .place-btn {
+
+      .bet-inputs div {
+        display: flex;
+        flex-direction: column;
         flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
+      }
+
+      .bet-inputs input {
+        height: 35px;
+        border-radius: 5px;
         border: none;
-        font-size: 16px;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
       }
-      .cancel-btn {
-        background: #fff;
-        border: 2px solid #28a745;
-        color: #28a745;
+
+      .add-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
       }
-      .place-btn {
-        background: #28a745;
+
+      .add-buttons button {
+        flex: 1;
+        margin: 0 5px;
+        background-color: #a020f0;
+        border: none;
         color: #fff;
+        padding: 8px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .bottom-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .btn-cancel {
+        background-color: #444;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        flex: 1;
+        margin-right: 5px;
+      }
+
+      .btn-login {
+        background-color: #2ecc71;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        flex: 1;
+        margin-left: 5px;
+      }
+
+      .confirm {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #aaa;
       }
 
       .toggle {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        margin-top: 10px;
-        font-size: 14px;
-      }
-      .switch {
+        width: 40px;
+        height: 20px;
+        background-color: #444;
+        border-radius: 20px;
         position: relative;
-        display: inline-block;
-        width: 50px;
-        height: 24px;
-        margin-left: 10px;
-      }
-      .switch input {
-        display: none;
-      }
-      .slider {
-        position: absolute;
         cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: 0.4s;
-        border-radius: 24px;
       }
-      .slider:before {
+
+      .circle {
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border-radius: 50%;
         position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
-        background-color: white;
-        transition: 0.4s;
-        border-radius: 50%;
-      }
-      input:checked + .slider {
-        background-color: #28a745;
-      }
-      input:checked + .slider:before {
-        transform: translateX(26px);
+        top: 2px;
+        left: 2px;
+        transition: 0.3s;
       }
 
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 10000;
-        display: none;
-        justify-content: center;
-        align-items: center;
+      .toggle.active {
+        background-color: #2ecc71;
       }
 
-      .countdown-circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: #05053a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        font-size: 32px;
-        font-weight: bold;
+      .toggle.active .circle {
+        left: 22px;
       }
 
-      .profit-max {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        font-size: 14px;
-        font-weight: bold;
-      }
-      .profit-max span.profit {
-        background: #e8fbe8;
-        color: green;
-        padding: 6px 12px;
-        border-radius: 8px;
+      @media (max-width: 600px) {
+        .container {
+          width: 100%;
+        }
       }
     </style>
   </head>
-  <body>
+  <!-- navbar style start -->
+  <style>
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #0c161b;
+      border-bottom: 1px solid #1f2a30;
+    }
 
-    
-    <div class="bet-container">
-      <div class="alert-bar" id="alertBar"></div>
+    .logo {
+      display: flex;
+      align-items: center;
+      color: #e6007a;
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-      <div class="profit-max">
-        <span class="profit">Profit : ₹0.00</span>
-        <span style="color: black">Max Market: ₹2,00,000</span>
-      </div>
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
 
-      <div class="row">
-        <div class="odds-box">
-          <button id="minusOdds">-</button>
-          <span class="odds-value" id="oddsValue">1.75</span>
-          <button id="plusOdds">+</button>
+    .auth-buttons button {
+      margin-left: 10px;
+      padding: 4px 6px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .login {
+      background: linear-gradient(to right, #b833dc, #ff00cc);
+      color: white;
+    }
+
+    .register {
+      background: linear-gradient(to right, #00ff85, #00b245);
+      color: white;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+      background: linear-gradient(to bottom, #1b2235, #131e2e);
+      margin: 80px auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      color: white;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      color: #6c63ff;
+      margin-bottom: 10px;
+    }
+
+    .modal-content h3 {
+      margin: 0;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .tab-toggle {
+      display: flex;
+      margin: 15px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #1e2a3b;
+    }
+
+    .tab-toggle button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background-color: #1e2a3b;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tab-toggle .active {
+      background-color: #00b86b;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background-color: #0e1c2c;
+      color: white;
+    }
+
+    .modal-content input::placeholder {
+      color: #888;
+    }
+
+    .login-btn,
+    .register-btn {
+      background: linear-gradient(to right, #00ff85, #00b245);
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .alt-login {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .alt-login button {
+      flex: 1;
+      padding: 10px;
+      margin: 5px;
+      background-color: #0e1c2c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .alt-login button img {
+      height: 20px;
+      margin-right: 8px;
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 12px;
+      color: #bbb;
+      margin-top: -10px;
+    }
+  </style>
+  <!-- navbar style end -->
+  <style>
+    body {
+      background: #0b0c10;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      margin-bottom: 70px;
+    }
+    .top-banner {
+      background: #081730;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-banner span {
+      color: #fff;
+      font-size: 14px;
+    }
+    .top-banner .btn {
+      background: #ff007f;
+      border: none;
+      font-size: 13px;
+    }
+
+    .navbar {
+      background: #111;
+      border-bottom: 1px solid #222;
+    }
+    .navbar-brand {
+      color: #ff007f !important;
+      font-weight: bold;
+    }
+    .deposit-btn {
+      background: #00c853;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    .menu-tabs {
+      background: #0d0d0d;
+      padding: 6px 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .menu-tabs a {
+      color: #ccc;
+      margin-right: 15px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .menu-tabs a:hover {
+      color: #fff;
+    }
+
+    .hero-banner {
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin: 15px 0 10px 0;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+    }
+
+    .trending-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .sports-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      margin-top: 10px;
+      padding-bottom: 5px;
+    }
+    .sports-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sports-btn i {
+      color: #ff007f;
+    }
+
+    .provider-logo img {
+      max-height: 80px;
+      object-fit: contain;
+    }
+  </style>
+
+  <!-- Transding now style start -->
+  <style>
+    /* ✅ Trending Section */
+    .trending-container {
+      display: flex;
+      gap: 0; /* Ensure no gap between flex items */
+    }
+
+    .trending-card {
+      min-width: 80px;
+      height: 50px;
+      margin-right: 4px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0; /* Just in case */
+    }
+
+    .trending-card:last-child {
+      margin-right: 0;
+    }
+
+    .trending-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* ✅ Sports Section */
+    /* .sport-card {
+        min-width: 70px;
+        height: 70px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        background: #1f1f1f;
+        border-radius: 8px;
+        text-align: center;
+        padding: 8px 5px;
+        color: #fff;
+        font-size: 12px;
+      } */
+
+    /* .sport-card img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-bottom: 5px;
+      } */
+    .providers-prev .providers-next,
+    .trend-prev,
+    .trend-next,
+    .sports-prev,
+    .sports-next {
+      background: #2b2b2b;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .trend-prev:hover,
+    .trend-next:hover,
+    .sports-prev:hover,
+    .sports-next:hover {
+      background: #444;
+    }
+  </style>
+
+  <!-- style end -->
+
+  <!-- game provider start -->
+  <style>
+    /* ---------- Providers Header ---------- */
+    .providers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .providers-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+      color: #fff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .see-more {
+      font-size: 14px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ---------- Providers Grid ---------- */
+    .providers-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr); /* website view me jyada columns */
+      gap: 12px;
+      width: 100%; /* full width container */
+    }
+
+    .provider-card {
+      width: 100%;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      background-color: #1a2430;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .provider-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 📱 Mobile view (768px se chhota screen) */
+    @media (max-width: 768px) {
+      .providers-grid {
+        grid-template-columns: repeat(3, 1fr); /* mobile pe 3 per row */
+      }
+    }
+  </style>
+  <!-- game provider end  -->
+
+  <!-- Top Banner -->
+  <!-- Top Banner start -->
+
+  <div
+    id="installBanner"
+    style="
+      background: linear-gradient(to right, #061c3d, #02122a);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 6px;
+      width: 100%;
+      box-sizing: border-box;
+      color: white;
+      font-family: Arial, sans-serif;
+    "
+  >
+    <!-- Left Side -->
+    <div style="display: flex; align-items: center; gap: 12px">
+      <!-- Close Button -->
+      <button
+        id="closeBtn"
+        style="
+          background-color: #d9d9d9;
+          border: none;
+          color: #ff007f;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          font-size: 16px;
+          line-height: 26px;
+          text-align: center;
+          cursor: pointer;
+        "
+        aria-label="Close"
+        title="Close"
+      >
+        ✕
+      </button>
+
+      <!-- Dice Icon -->
+      <img
+        src="images/diceimage.png"
+        alt="Dice"
+        style="width: 48px; height: 48px; border-radius: 12px"
+      />
+
+      <!-- Text Content -->
+      <div style="display: flex; flex-direction: column">
+        <div style="font-weight: bold; font-size: 16px; color: white">
+          Install On IOS
         </div>
-        <div class="stake-input">
-          <input type="number" id="stakeInput" value="0" min="0" />
+        <div style="font-size: 13px; color: #ccc">
+          Instant Download on your device
         </div>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-purple" onclick="addStake(1000)">+1000</button>
-        <button class="btn btn-purple" onclick="addStake(10000)">+10000</button>
-        <button class="btn btn-purple" onclick="addStake(20000)">+20000</button>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-blue" onclick="setMin()">MIN</button>
-        <button class="btn btn-green" onclick="setMax()">MAX</button>
-        <button class="btn btn-pink" onclick="editStake()">EDIT STAKES</button>
-        <button class="btn btn-purple" onclick="clearStake()">CLEAR</button>
-      </div>
-
-      <div class="action-buttons">
-        <button class="cancel-btn" onclick="cancelBet()">Cancel Bet</button>
-        <button class="place-btn" onclick="placeBet()">Place Bet</button>
-      </div>
-
-      <div class="toggle">
-        Confirm bet before placing
-        <label class="switch">
-          <input type="checkbox" id="confirmToggle" />
-          <span class="slider"></span>
-        </label>
+        <div style="font-size: 14px; color: gold; margin-top: 2px">★★★★★</div>
       </div>
     </div>
 
-    <div class="overlay" id="overlay">
-      <div class="countdown-circle" id="countdownCircle">3</div>
+    <!-- Right Side Button -->
+    <button
+      style="
+        background: #ff007f;
+        color: white;
+        border: none;
+        font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      "
+    >
+      Instructions
+    </button>
+  </div>
+
+  <script>
+    document.getElementById("closeBtn").addEventListener("click", () => {
+      document.getElementById("installBanner").style.display = "none";
+    });
+  </script>
+
+  <!-- Top Banner end -->
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div
+      class="logo"
+      style="display: flex; align-items: center; justify-content: flex-start"
+    >
+      <img
+        src="images/logo.png"
+        alt="11exch Logo"
+        style="height: 45px; width: auto"
+      />
+    </div>
+
+    <div class="auth-buttons">
+      <button class="login" onclick="openModal('loginModal')">Login</button>
+      <button class="register" onclick="openModal('registerModal')">
+        Register
+      </button>
+    </div>
+  </nav>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>Log in</h2>
+      <h3>Welcome To 11Exch 👋</h3>
+
+      <div class="tab-toggle">
+        <button class="active">Phone Number</button>
+        <button>User ID</button>
+      </div>
+
+      <label>Mobile Number *</label>
+      <input type="text" placeholder="+91 🇮🇳 Enter your Mobile Number" />
+
+      <label>Password *</label>
+      <input type="password" placeholder="Enter Password" />
+      <div class="forgot-password">
+        <a href="#" style="color: #00ff85; text-decoration: none"
+          >Forgot Password?</a
+        >
+      </div>
+
+      <a href="index2.html" style="text-decoration: none">
+        <button class="login-btn">LOG IN</button>
+      </a>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #333" />
+      <p style="text-align: center">or log in with</p>
+
+      <div class="alt-login">
+        <button>
+          <img
+            src="https://img.icons8.com/color/24/000000/google-logo.png"
+          />Google
+        </button>
+        <button>
+          <img
+            src="https://img.icons8.com/color/24/000000/whatsapp.png"
+          />WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('registerModal')">&times;</span>
+      <h2 style="color: #00ffea">New Member?</h2>
+      <h3>Register Now, 👋</h3>
+
+      <label>Mobile Number *</label>
+      <input type="text" placeholder="+91 🇮🇳 Enter your Mobile Number" />
+
+      <div class="alt-login">
+        <button
+          style="
+            background: linear-gradient(to right, #a0f8c4, #02c75a);
+            color: black;
+          "
+        >
+          <img src="https://img.icons8.com/ios-filled/20/000000/sms.png" />
+          Get SMS
+        </button>
+        <button
+          style="
+            background: linear-gradient(to right, #00ff85, #00b245);
+            color: black;
+          "
+        >
+          <img src="https://img.icons8.com/color/20/000000/whatsapp.png" />
+          WhatsApp
+        </button>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #333" />
+      <p style="text-align: center">or sign up with</p>
+
+      <div class="alt-login">
+        <button>
+          <img
+            src="https://img.icons8.com/color/24/000000/google-logo.png"
+          />Google
+        </button>
+        <button>
+          <img
+            src="https://img.icons8.com/color/24/000000/whatsapp.png"
+          />WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Tabs -->
+  <!-- Menu Container with Button on Right -->
+  <div class="menu-container">
+    <div class="menu-tabs">
+      <a href="#">Aviator</a>
+      <a href="#">Aura</a>
+      <a href="#">Live Casino</a>
+      <a href="#">Sports</a>
+      <a href="#">Sportsbook</a>
+      <a href="#">Virtual Sports</a>
+      <a href="#">Poker</a>
+      <a href="#">Slot-Game</a>
+    </div>
+
+    <!-- Right-Aligned Dropdown Button -->
+    <a href="afteruser.html" class="menu-dropdown-btn"> &#9660; </a>
+  </div>
+
+  <style>
+    .menu-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #0f181d;
+      padding: 10px 20px;
+    }
+
+    .menu-tabs {
+      display: flex;
+      gap: 12px;
+    }
+
+    .menu-tabs a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .menu-dropdown-btn {
+      background-color: #ff00a6;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    .menu-dropdown-btn:hover {
+      background-color: #e60094;
+    }
+  </style>
+
+  <!-- Hero Banner -->
+
+  <body>
+    <div class="wrap">
+      <div class="content">
+        <!-- top pill -->
+        <div class="top-line">
+          <div class="back-arrow" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="display: block"
+            >
+              <path
+                d="M15 18L9 12l6-6"
+                stroke="#ff7482"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="top-pill">
+            <div class="dot"></div>
+            <div>Upcoming (Opens in 4h 10m)</div>
+          </div>
+        </div>
+
+        <!-- big title -->
+        <div class="title-block">
+          <div class="title-left">
+            <div class="match">Pakistan vs Sri Lanka</div>
+            <div class="comp">Asia Cup</div>
+          </div>
+          <div class="title-right">In Play :</div>
+        </div>
+
+        <!-- tabs -->
+        <div class="tabs" role="tablist">
+          <div class="tab active" data-tab="market">Market</div>
+          <div class="tab" data-tab="info">Match Info</div>
+          <div class="tab" data-tab="live">Live Video</div>
+          <div class="tab" data-tab="open">Open Bets</div>
+        </div>
+
+        <!-- Tab Panes - Each tab contains its specific content followed by match odds -->
+        <div id="tabs-content">
+          <!-- Market Tab -->
+          <div class="tab-pane active" data-content="market">
+            <!-- Market specific content -->
+            <div
+              style="
+                padding: 12px 15px;
+                border-bottom: 1px solid #2a425c;
+                position: relative;
+              "
+            >
+              <span style="color: #a0aec0; font-size: 14px"
+                >Upcoming (Opens in 4h 10m)</span
+              >
+              <span style="float: right; color: #a0aec0; font-size: 14px"
+                >(0)</span
+              >
+              <div
+                style="
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  bottom: 0;
+                  width: 3px;
+                  background-color: #e53e3e;
+                "
+              ></div>
+            </div>
+            <div style="padding: 15px">
+              <div
+                style="font-size: 16px; margin-bottom: 5px; font-weight: 500"
+              >
+                Pakistan vs Sri Lanka
+              </div>
+              <div style="font-size: 14px; margin-bottom: 10px">Asia Cup</div>
+              <div style="font-size: 14px; color: #48bb78">
+                <span
+                  style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    background-color: #e53e3e;
+                    border-radius: 50%;
+                    margin-right: 8px;
+                  "
+                ></span>
+                In Play :
+              </div>
+            </div>
+
+            <!-- Match Odds for Market Tab -->
+            <div class="container">
+              <div class="header">
+                <span>Match Odds</span>
+                <button>Cashout</button>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 1.85)">
+                    1.85<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 1.87)">
+                    1.87<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 2.1)">
+                    2.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 2.15)">
+                    2.15<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span>BOOKMAKER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span>1st innings - Babar Azam to score 50</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Yes</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Yes', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Yes', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>No</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('No', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span> 1st innings over 2 - Pakistan odd/even</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Odd</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Odd', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Odd', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Even</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Even', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Even', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>The Draw</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Draw', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Draw', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>Tied Match</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Tied', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Tied', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>No Result</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No Result', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('No Result', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Match Info Tab -->
+          <div class="tab-pane" data-content="info">
+            <!-- Match Info specific content -->
+            <div class="match-header">
+              <div class="status">🔴 Upcoming (Opens in 4h 10m)</div>
+              <h2>Pakistan vs Sri Lanka</h2>
+              <div class="status">Asia Cup</div>
+            </div>
+            <div class="match-info-content">
+              <div class="match-box">
+                <p>to and</p>
+                <div class="score">
+                  <div>Ov 0</div>
+                  <div>0 runs</div>
+                  <div>0-0</div>
+                </div>
+              </div>
+              <div class="match-box">
+                <p>to and</p>
+                <div class="score">
+                  <div>Ov 0</div>
+                  <div>0 runs</div>
+                  <div>0-0</div>
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px">
+                <span style="color: #ccc">● ●</span>
+              </div>
+            </div>
+
+            <!-- Match Odds for Match Info Tab -->
+            <div class="container">
+              <div class="header">
+                <span>Match Odds</span>
+                <button>Cashout</button>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 1.85)">
+                    1.85<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 1.87)">
+                    1.87<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 2.1)">
+                    2.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 2.15)">
+                    2.15<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span>BOOKMAKER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span>1st innings - Babar Azam to score 50</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Yes</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Yes', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Yes', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>No</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('No', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span> 1st innings over 2 - Pakistan odd/even</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Odd</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Odd', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Odd', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Even</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Even', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Even', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>The Draw</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Draw', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Draw', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>Tied Match</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Tied', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Tied', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>No Result</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No Result', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('No Result', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Video Tab -->
+          <div class="tab-pane" data-content="live">
+            <!-- Live Video specific content -->
+            <p style="padding: 20px">Live Video Coming Soon</p>
+
+            <!-- Match Odds for Live Video Tab -->
+            <div class="container">
+              <div class="header">
+                <span>Match Odds</span>
+                <button>Cashout</button>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 1.85)">
+                    1.85<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 1.87)">
+                    1.87<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 2.1)">
+                    2.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 2.15)">
+                    2.15<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span>BOOKMAKER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span>1st innings - Babar Azam to score 50</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Yes</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Yes', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Yes', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>No</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('No', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span> 1st innings over 2 - Pakistan odd/even</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Odd</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Odd', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Odd', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Even</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Even', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Even', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>The Draw</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Draw', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Draw', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>Tied Match</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Tied', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Tied', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>No Result</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No Result', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('No Result', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Open Bets Tab -->
+          <div class="tab-pane" data-content="open">
+            <!-- Open Bets specific content -->
+            <div style="text-align: center; padding: 20px">
+              <!-- Toggle Buttons -->
+              <div
+                style="
+                  display: inline-flex;
+                  background: #2a2f36;
+                  border-radius: 8px;
+                  overflow: hidden;
+                  margin-bottom: 15px;
+                "
+              >
+                <button
+                  id="matchedBtn"
+                  class="toggle-btn active"
+                  style="
+                    padding: 10px 20px;
+                    border: none;
+                    cursor: pointer;
+                    background: linear-gradient(90deg, #d946ef, #9333ea);
+                    color: #fff;
+                    font-weight: bold;
+                    border-radius: 6px;
+                    margin: 4px;
+                  "
+                >
+                  Matched Bets
+                </button>
+                <button
+                  id="unmatchedBtn"
+                  class="toggle-btn"
+                  style="
+                    padding: 10px 20px;
+                    border: none;
+                    cursor: pointer;
+                    background: transparent;
+                    color: #fff;
+                    font-weight: bold;
+                    margin: 4px;
+                  "
+                >
+                  Unmatched Bets
+                </button>
+              </div>
+
+              <!-- Content Area -->
+              <div
+                id="betsContent"
+                style="color: #fff; font-size: 16px; margin-top: 10px"
+              >
+                Login To View Matched Bets
+              </div>
+            </div>
+
+            <!-- Match Odds for Open Bets Tab -->
+            <div class="container">
+              <div class="header">
+                <span>Match Odds</span>
+                <button>Cashout</button>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 1.85)">
+                    1.85<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 1.87)">
+                    1.87<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 2.1)">
+                    2.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 2.15)">
+                    2.15<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span>BOOKMAKER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span>1st innings - Babar Azam to score 50</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Yes</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Yes', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Yes', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>No</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('No', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="header">
+                <span> 1st innings over 2 - Pakistan odd/even</span>
+                <span style="text-align: right">BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Odd</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Odd', 1.23)">
+                    1.23<br /><small>2623.35</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Odd', 1.24)">
+                    1.24<br /><small>2579.63</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Even</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Even', 5.1)">
+                    5.1<br /><small>815.79</small>
+                  </button>
+                  <button class="lay" onclick="openSlip('Even', 5.3)">
+                    5.3<br /><small>112.41</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bookmaker">
+                <span> BM 1 TO 10 OVER</span>
+                <span>BACK | LAY</span>
+              </div>
+
+              <div class="row">
+                <span>Pakistan</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Pakistan', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Pakistan', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>Sri Lanka</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Sri Lanka', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Sri Lanka', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <span>The Draw</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Draw', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Draw', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>Tied Match</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('Tied', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('Tied', 27)">27</button>
+                </div>
+              </div>
+              <div class="row">
+                <span>No Result</span>
+                <div class="odds">
+                  <button class="back" onclick="openSlip('No Result', 24)">
+                    24
+                  </button>
+                  <button class="lay" onclick="openSlip('No Result', 27)">
+                    27
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Betting Slip (Common for all tabs) -->
+        <div id="betSlip" class="bet-slip">
+          <div><strong id="teamName"></strong></div>
+          <p>
+            Profit: <span class="profit">₹0.00</span>
+            <span style="float: right">Max Market: ₹x,xx,xxx</span>
+          </p>
+          <div class="bet-inputs">
+            <div>
+              <label>ODDS</label>
+              <input type="text" id="odds" readonly />
+            </div>
+            <div>
+              <label>STAKES</label>
+              <input type="number" id="stakes" value="0" />
+            </div>
+          </div>
+
+          <div class="add-buttons">
+            <button onclick="addStake(1000)">+1000</button>
+            <button onclick="addStake(10000)">+10000</button>
+            <button onclick="addStake(20000)">+20000</button>
+          </div>
+
+          <div class="bottom-buttons">
+            <button class="btn-cancel" onclick="closeSlip()">Cancel Bet</button>
+            <button class="btn-login">Login</button>
+          </div>
+
+          <div class="confirm">
+            <span>Confirm bet before placing</span>
+            <div class="toggle" onclick="toggleSwitch(this)">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-      let odds = 1.75;
+      // Tab switching
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Activate clicked tab
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
 
-      document.getElementById("plusOdds").addEventListener("click", () => {
-        odds += 0.01;
-        updateOdds();
+          // Show associated content
+          document.querySelectorAll(".tab-pane").forEach((pane) => {
+            pane.classList.remove("active");
+          });
+
+          const target = tab.getAttribute("data-tab");
+          document
+            .querySelector(`.tab-pane[data-content="${target}"]`)
+            .classList.add("active");
+        });
       });
-      document.getElementById("minusOdds").addEventListener("click", () => {
-        if (odds > 1.01) odds -= 0.01;
-        updateOdds();
-      });
-      function updateOdds() {
-        document.getElementById("oddsValue").textContent = odds.toFixed(2);
+
+      // Betting slip functions
+      function openSlip(team, odds) {
+        document.getElementById("teamName").innerText = team;
+        document.getElementById("odds").value = odds;
+        document.getElementById("betSlip").style.display = "block";
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      function closeSlip() {
+        document.getElementById("betSlip").style.display = "none";
       }
 
       function addStake(amount) {
-        let stakeInput = document.getElementById("stakeInput");
+        const stakeInput = document.getElementById("stakes");
         stakeInput.value = parseInt(stakeInput.value) + amount;
       }
-      function setMin() {
-        document.getElementById("stakeInput").value = 100;
-      }
-      function setMax() {
-        document.getElementById("stakeInput").value = 200000;
-      }
-      function editStake() {
-        let newStake = prompt("Enter custom stake amount:");
-        if (newStake && !isNaN(newStake))
-          document.getElementById("stakeInput").value = newStake;
-      }
-      function clearStake() {
-        document.getElementById("stakeInput").value = 0;
-      }
-      function cancelBet() {
-        odds = 1.75;
-        updateOdds();
-        clearStake();
-        showAlert("Bet cancelled!");
+
+      function toggleSwitch(el) {
+        el.classList.toggle("active");
       }
 
-      function placeBet() {
-        const confirmToggle = document.getElementById("confirmToggle").checked;
-        const stake = document.getElementById("stakeInput").value;
-        if (stake <= 0) {
-          showAlert("Please enter stake amount!");
-          return;
-        }
-        if (confirmToggle) {
-          if (!confirm("Are you sure you want to place this bet?")) return;
-        }
+      // Open Bets toggle
+      const matchedBtn = document.getElementById("matchedBtn");
+      const unmatchedBtn = document.getElementById("unmatchedBtn");
+      const betsContent = document.getElementById("betsContent");
 
-        const overlay = document.getElementById("overlay");
-        const countdown = document.getElementById("countdownCircle");
-        overlay.style.display = "flex";
+      matchedBtn.addEventListener("click", () => {
+        matchedBtn.style.background =
+          "linear-gradient(90deg, #d946ef, #9333ea)";
+        matchedBtn.style.color = "#fff";
+        unmatchedBtn.style.background = "transparent";
+        unmatchedBtn.style.color = "#fff";
+        betsContent.innerHTML = "Login To View Matched Bets";
+      });
 
-        let seconds = 3;
-        countdown.textContent = seconds;
-
-        let interval = setInterval(() => {
-          seconds--;
-          if (seconds > 0) {
-            countdown.textContent = seconds;
-          } else {
-            clearInterval(interval);
-            overlay.style.display = "none";
-            showAlert(
-              `Bet placed successfully! Odds: ${odds.toFixed(
-                2
-              )} Stake: ₹${stake}`
-            );
-          }
-        }, 1000);
-      }
-
-      function showAlert(message) {
-        let alertBar = document.getElementById("alertBar");
-        alertBar.innerText = message;
-        alertBar.style.display = "block";
-        alertBar.style.top = "-50px";
-        setTimeout(() => {
-          alertBar.style.display = "none";
-        }, 3000);
-      }
+      unmatchedBtn.addEventListener("click", () => {
+        unmatchedBtn.style.background =
+          "linear-gradient(90deg, #d946ef, #9333ea)";
+        unmatchedBtn.style.color = "#fff";
+        matchedBtn.style.background = "transparent";
+        matchedBtn.style.color = "#fff";
+        betsContent.innerHTML = "Login To View Unmatched Bets";
+      });
     </script>
   </body>
+
+  
+      <style>
+        /* Footer Styles */
+        .footer {
+          background-color: #070d13;
+          padding: 60px 20px 40px;
+          border-radius: 10px;
+          width: 100%;
+          max-width: 1480px;
+        }
+
+        /* .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      } */
+
+        /* Top Row: Logo + Navigation */
+        .footer-top {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .footer-logo img {
+          width: auto;
+          height: 100px;
+        }
+
+        .footer-logo span {
+          font-size: 28px;
+          font-weight: bold;
+          color: #d428a0;
+        }
+
+        .footer .top-links {
+          display: flex;
+          gap: 25px;
+          flex-wrap: wrap;
+        }
+
+        .footer .top-links a {
+          color: #ffffff;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 16px;
+          transition: color 0.3s;
+          position: relative;
+        }
+
+        .footer .top-links a:hover {
+          color: #d428a0;
+        }
+
+        .footer .top-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 0;
+          background-color: #d428a0;
+          transition: width 0.3s;
+        }
+
+        .footer .top-links a:hover::after {
+          width: 100%;
+        }
+
+        /* Middle: About / Blog / Responsible */
+        .footer-links {
+          text-align: center;
+          margin-bottom: 40px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 40px;
+        }
+
+        .footer-links a {
+          color: #c2c2c2;
+          text-decoration: none;
+          font-size: 16px;
+          transition: color 0.3s;
+          padding: 8px 15px;
+          border-radius: 4px;
+          position: relative;
+        }
+
+        .footer-links a:hover {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Social Media Section */
+        .footer .social-section {
+          text-align: center;
+          margin-bottom: 30px;
+          width: 100%;
+        }
+
+        .footer .social-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .social-icons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 40px;
+        }
+
+        .footer .social-icons a {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 20px;
+          text-decoration: none;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer .telegram {
+          background-color: #0088cc;
+        }
+        .footer .instagram {
+          background: linear-gradient(
+            45deg,
+            #f09433,
+            #e6683c,
+            #dc2743,
+            #cc2366,
+            #bc1888
+          );
+        }
+        .footer .facebook {
+          background-color: #3b5998;
+        }
+
+        /* Download Button */
+        .footer .download-section {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .footer .download-button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(90deg, #c00090, #8000ff);
+          color: white;
+          padding: 15px 25px;
+          border-radius: 12px;
+          text-decoration: none;
+          max-width: 320px;
+          width: 100%;
+          font-weight: bold;
+          font-size: 16px;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer .download-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(128, 0, 255, 0.3);
+        }
+
+        .footer .download-button i {
+          margin-right: 12px;
+          font-size: 24px;
+          color: white;
+        }
+
+        .footer .download-text {
+          flex-grow: 1;
+          text-align: left;
+          font-size: 14px;
+          color: white;
+        }
+
+        .footer .download-text strong {
+          display: block;
+          font-size: 16px;
+        }
+
+        .footer .arrow {
+          font-size: 20px;
+          margin-left: 10px;
+          color: white;
+        }
+
+        /* Payment Methods Section */
+        .footer .payment-section {
+          width: 100%;
+          margin: 30px 0;
+          text-align: center;
+        }
+
+        .footer .payment-title {
+          font-size: 18px;
+          color: #c2c2c2;
+          margin-bottom: 20px;
+          font-weight: 500;
+        }
+
+        .footer .payment-methods {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-top: 15px;
+        }
+
+        .footer .payment-method {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 20px;
+          border-radius: 8px;
+          color: #c2c2c2;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .footer .payment-method:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          transform: translateY(-3px);
+        }
+
+        .footer .payment-method i {
+          font-size: 20px;
+        }
+
+        .footer .copyright {
+          margin-top: 40px;
+          text-align: center;
+          color: #c2c2c2;
+          font-size: 14px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .footer-top {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+          }
+
+          .footer .top-links {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+          }
+
+          .footer-links {
+            flex-direction: column;
+            gap: 15px;
+          }
+
+          .footer .payment-methods {
+            gap: 10px;
+          }
+
+          .footer .payment-method {
+            padding: 8px 15px;
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .footer-logo span {
+            font-size: 24px;
+          }
+
+          .footer .download-button {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            padding: 15px;
+          }
+
+          .footer .download-text {
+            text-align: center;
+          }
+
+          .footer .arrow {
+            display: none;
+          }
+
+          .footer .social-icons a {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+          }
+
+          .footer .payment-methods {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .footer .payment-method {
+            width: 200px;
+            justify-content: center;
+          }
+        }
+      </style>
+
+      <!-- FOOTER START -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <!-- Top Row: Logo + Navigation -->
+          <div class="footer-top">
+            <div class="footer-logo">
+              <img src="/images/logo.png" alt="Dice Logo" />
+            </div>
+
+            <div class="top-links">
+              <a href="#">ABOUT</a>
+              <a href="#">REGULATIONS</a>
+              <a href="#">HELP</a>
+            </div>
+          </div>
+
+          <!-- Middle Section: Additional Links -->
+          <div class="footer-links">
+            <a href="#">About us</a>
+            <a href="#">Responsible Gaming</a>
+            <a href="#">Blog</a>
+          </div>
+
+          <!-- Social Media Section -->
+          <div class="social-section">
+            <div class="social-title">Social Networks</div>
+            <div class="social-icons">
+              <a href="#" class="telegram" title="Telegram"
+                ><i class="fab fa-telegram-plane"></i
+              ></a>
+              <a href="#" class="instagram" title="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="facebook" title="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Download Button -->
+          <div class="download-section">
+            <a href="#" class="download-button" id="downloadApp">
+              <i class="fab fa-android"></i>
+              <div class="download-text">
+                Download<br />
+                <strong>ANDROID APP</strong>
+              </div>
+              <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+          </div>
+
+          <!-- Payment Methods Section -->
+          <div class="payment-section">
+            <div class="payment-title">Payment Methods</div>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-mobile-alt"></i>
+                <span>UPI</span>
+              </div>
+              <div class="payment-method">
+                <i class="fas fa-wallet"></i>
+                <span>Paytm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Copyright -->
+          <div class="copyright">
+            <p>
+              &copy; 2023 11exch. All rights reserved. Gambling can be
+              addictive, please play responsibly.
+            </p>
+          </div>
+        </div>
+      </footer>
+      <!-- FOOTER END -->
+
+      <!-- JavaScript -->
+      <script>
+        document
+          .getElementById("downloadApp")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Create a nice notification instead of alert
+            const notification = document.createElement("div");
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #c00090, #8000ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s forwards;
+          `;
+            notification.innerHTML = "Redirecting to Android App Download...";
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+              notification.style.animation = "slideOut 0.5s forwards";
+              setTimeout(() => {
+                document.body.removeChild(notification);
+              }, 500);
+            }, 3000);
+
+            // Uncomment and add your download URL below:
+            // window.location.href = "https://your-download-link.com";
+          });
+
+        // Add keyframes for animation
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @keyframes slideIn {
+          from { transform: translateX(100px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100px); opacity: 0; }
+        }
+      `;
+        document.head.appendChild(style);
+      </script>
+
+      <!-- Bottom Navigation -->
+      <div
+        style="
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 70px;
+          background: #2e153e;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          border-top-left-radius: 16px;
+          border-top-right-radius: 16px;
+          z-index: 9999;
+        "
+      >
+        <!-- Casino -->
+        <a
+          href="casino.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-dice"></i>
+          </div>
+          Casino
+        </a>
+
+        <!-- Sports -->
+        <a
+          href="sports.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-futbol"></i>
+          </div>
+          Sports
+        </a>
+
+        <!-- Home Button -->
+        <a
+          href="index.html"
+          style="
+            text-align: center;
+            flex: 1;
+            text-decoration: none;
+            margin-top: -30px;
+          "
+        >
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: #b122d9;
+              border-radius: 50%;
+              border: 6px solid #0c1013;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 24px;
+              color: white;
+              margin: auto;
+            "
+          >
+            <i class="fas fa-home"></i>
+          </div>
+        </a>
+
+        <!-- Open Bets -->
+        <a
+          href="openbets.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-tv"></i>
+          </div>
+          Open Bets
+        </a>
+
+        <!-- Menu -->
+        <a
+          href="menu.html"
+          style="
+            text-align: center;
+            flex: 1;
+            font-size: 13px;
+            color: #9b8fa3;
+            background-color: linear-gradient(to right, #b833dc, #ff00cc);
+            text-decoration: none;
+          "
+        >
+          <div style="font-size: 20px; margin-bottom: 3px">
+            <i class="fas fa-th"></i>
+          </div>
+          Menu
+        </a>
+      </div>
+    </body>
+
+    <!-- transding now script  start-->
+    <script>
+      function setupSlider(sliderClass, prevBtn, nextBtn) {
+        const slider = document.querySelector(sliderClass);
+        const prev = document.querySelector(prevBtn);
+        const next = document.querySelector(nextBtn);
+
+        next.addEventListener("click", () => {
+          slider.scrollBy({ left: 200, behavior: "smooth" });
+        });
+
+        prev.addEventListener("click", () => {
+          slider.scrollBy({ left: -200, behavior: "smooth" });
+        });
+      }
+
+      setupSlider(".trending-slider", ".trend-prev", ".trend-next");
+      setupSlider(".sports-slider", ".sports-prev", ".sports-next");
+    </script>
+    <!-- game provider  -->
+
+    <!-- Swiper JS -->
+    <script>
+      const providerSwiper = new Swiper(".providers-swiper", {
+        slidesPerView: 1, // only 1 grid (3x3) per slide
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".providers-next",
+          prevEl: ".providers-prev",
+        },
+        loop: true,
+        grabCursor: true,
+        keyboard: { enabled: true },
+      });
+    </script>
+
+    <!-- end of game provider -->
+
+    <!-- transding now script end  -->
+
+    <!-- whstapp icon start -->
+    <!-- ✅ WhatsApp Button -->
+    <div class="whatsapp-popup">
+      <div class="whatsapp-icon">
+        <a href="https://wa.me/919999999999" target="_blank">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/220/220236.png"
+            alt="WhatsApp"
+          />
+          <div class="tooltip-text">
+            Play and win!<br />Get a new install via WhatsApp
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ✅ CSS -->
+    <style>
+      .whatsapp-popup {
+        position: fixed;
+        bottom: 80px;
+        left: 10px;
+        z-index: 9999;
+      }
+
+      .whatsapp-icon {
+        position: relative;
+        width: 56px;
+        height: 56px;
+      }
+
+      .whatsapp-icon a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        background-color: #25d366;
+        border-radius: 50%;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        overflow: visible;
+      }
+
+      .whatsapp-icon img {
+        width: 32px;
+        height: 32px;
+        pointer-events: none;
+      }
+
+      /* ✅ Tooltip Styling */
+      .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 70px;
+        transform: translateY(-50%);
+        background-color: #25d366;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 1.3;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      /* ✅ Show tooltip on hover */
+      .whatsapp-icon:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+
+    <!-- whatsapp icon end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+
 </html>
